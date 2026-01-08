@@ -146,15 +146,8 @@ class RadarrCollector:
                 date_str = added.split("T")[0]
                 date_counts[date_str] += 1
         
-        # Calculate cumulative-by-date mapping for categorical charts
-        cumulative_by_date = {}
-        total = 0
-        for date in sorted(date_counts.keys()):
-            total += date_counts[date]
-            cumulative_by_date[date] = total
-        # Backward-compatible: provide scalar cumulative and labeled-by-date separately
-        metrics['radarr_cumulative_movies'] = total_movies  # scalar time series (gauge)
-        metrics['radarr_cumulative_movies_by_date'] = cumulative_by_date  # labeled for bar charts
+        # Provide scalar cumulative as a proper time series (no historical labels)
+        metrics['radarr_cumulative_movies'] = total_movies
         
         # Quality profiles
         quality_counts = defaultdict(int)
@@ -306,15 +299,8 @@ class SonarrCollector:
                 date_str = added.split("T")[0]
                 date_counts[date_str] += episode_count
         
-        # Calculate cumulative-by-date mapping for categorical charts
-        cumulative_by_date = {}
-        total = 0
-        for date in sorted(date_counts.keys()):
-            total += date_counts[date]
-            cumulative_by_date[date] = total
-        # Backward-compatible: provide scalar cumulative and labeled-by-date separately
-        metrics['sonarr_cumulative_episodes'] = total_episodes  # scalar time series (gauge)
-        metrics['sonarr_cumulative_episodes_by_date'] = cumulative_by_date  # labeled for bar charts
+        # Provide scalar cumulative as a proper time series (no historical labels)
+        metrics['sonarr_cumulative_episodes'] = total_episodes
         
         # Get file types from a sample of episodes (to avoid too many API calls)
         # We'll just get from the first few series
