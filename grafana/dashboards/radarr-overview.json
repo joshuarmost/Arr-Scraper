@@ -19,7 +19,7 @@
   "links": [],
   "panels": [
     {
-      "datasource": "Prometheus",
+      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -68,7 +68,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -117,7 +117,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -174,7 +174,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -231,7 +231,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -306,7 +306,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -381,7 +381,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -461,7 +461,30 @@
   "style": "dark",
   "tags": ["radarr", "media"],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Prometheus",
+          "value": "${ds_prometheus}"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Data source",
+        "multi": false,
+        "name": "ds_prometheus",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "datasource"
+      }
+    ]
   },
   "time": {
     "from": "now-30d",

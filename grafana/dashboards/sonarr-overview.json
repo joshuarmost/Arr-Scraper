@@ -9,7 +9,7 @@
   "links": [],
   "panels": [
     {
-      "datasource": "Prometheus",
+      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
       "fieldConfig": {
         "defaults": {
           "color": {"mode": "thresholds"},
@@ -36,7 +36,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
       "fieldConfig": {
         "defaults": {
           "color": {"mode": "thresholds"},
@@ -63,7 +63,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
       "fieldConfig": {
         "defaults": {
           "color": {"mode": "thresholds"},
@@ -94,7 +94,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
       "fieldConfig": {
         "defaults": {
           "color": {"mode": "thresholds"},
@@ -125,7 +125,7 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
       "fieldConfig": {
         "defaults": {
           "color": {"mode": "palette-classic"},
@@ -164,7 +164,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
       "fieldConfig": {
         "defaults": {
           "color": {"mode": "palette-classic"},
@@ -203,7 +203,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
       "fieldConfig": {
         "defaults": {
           "color": {"mode": "palette-classic"},
@@ -246,7 +246,32 @@
   "schemaVersion": 27,
   "style": "dark",
   "tags": ["sonarr", "media"],
-  "templating": {"list": []},
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Prometheus",
+          "value": "${ds_prometheus}"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Data source",
+        "multi": false,
+        "name": "ds_prometheus",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "datasource"
+      }
+    ]
+  },
   "time": {"from": "now-30d", "to": "now"},
   "timepicker": {},
   "timezone": "",
