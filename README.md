@@ -58,15 +58,32 @@ scrape_configs:
 
 Pre-built dashboards are in `grafana/dashboards/`:
 
-1. **Import to Grafana:**
-   - Go to Grafana → Dashboards → Import
-   - Upload JSON file or paste content
-   - Select Prometheus datasource
+### How to Import Dashboards
 
-2. **Available Dashboards:**
-   - `radarr-overview.json` - Movies, disk usage, codecs, genres
-   - `sonarr-overview.json` - Series, episodes, status, codecs
-   - `jellyfin-overview.json` - Streams, users, playback stats
+**Method 1: Via Grafana UI**
+1. Open Grafana (http://localhost:3000)
+2. Login (default: admin/admin)
+3. Click **☰** menu → **Dashboards** → **Import**
+4. Click **Upload JSON file**
+5. Select a dashboard file from `grafana/dashboards/`
+6. Choose your **Prometheus** datasource
+7. Click **Import**
+
+**Method 2: Copy-Paste JSON**
+1. Open a dashboard JSON file in a text editor
+2. Copy all contents
+3. In Grafana: **Dashboards** → **Import** → **Import via panel json**
+4. Paste the JSON
+5. Select Prometheus datasource → **Import**
+
+**Method 3: Auto-provisioned (docker-compose only)**
+- Dashboards are automatically loaded on startup
+- No manual import needed if using `docker-compose.yml`
+
+### Available Dashboards
+- **radarr-overview.json** - Movies, disk usage, codecs, genres
+- **sonarr-overview.json** - Series, episodes, status, codecs
+- **jellyfin-overview.json** - Streams, users, playback stats
 
 ## Configuration
 
