@@ -1,0 +1,41 @@
+global:
+  scrape_interval: 60s
+  evaluation_interval: 60s
+  scrape_timeout: 30s
+  external_labels:
+    monitor: 'media-services-monitor'
+
+# Alertmanager configuration (optional)
+# alerting:
+#   alertmanagers:
+#     - static_configs:
+#         - targets:
+#           - alertmanager:9093
+
+# Load rules once and periodically evaluate them
+rule_files:
+  - "/etc/prometheus/rules/*.yml"
+
+# Scrape configurations
+scrape_configs:
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+        labels:
+          service: 'prometheus'
+
+  # Media Services Exporter
+  - job_name: 'media-exporter'
+    scrape_interval: 60s
+    scrape_timeout: 30s
+    static_configs:
+      - targets: ['exporter:9877']
+        labels:
+          service: 'media-services'
+          environment: 'production'
+    metric_relabel_configs:
+      # Drop metrics we don't need (optional, customize as needed)
+      - source_labels: [__name__]
+        regex: 'go_.*|process_.*|python_.*'
+        action: drop

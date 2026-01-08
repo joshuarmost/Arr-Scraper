@@ -1,0 +1,77 @@
+groups:
+  - name: media_services_alerts
+    interval: 60s
+    rules:
+      # Radarr Alerts
+      - alert: RadarrHighQueueSize
+        expr: radarr_queue_total > 10
+        for: 10m
+        labels:
+          severity: warning
+          service: radarr
+        annotations:
+          summary: "Radarr download queue is high"
+          description: "Radarr has {{ $value }} items in queue, which is above the threshold of 10"
+
+      - alert: RadarrDiskSpaceLow
+        expr: radarr_disk_usage_bytes > 4e12  # 4TB threshold
+        for: 1h
+        labels:
+          severity: warning
+          service: radarr
+        annotations:
+          summary: "Radarr disk usage is high"
+          description: "Radarr is using {{ $value | humanize }}B of disk space"
+
+      # Sonarr Alerts
+      - alert: SonarrHighQueueSize
+        expr: sonarr_queue_total > 20
+        for: 10m
+        labels:
+          severity: warning
+          service: sonarr
+        annotations:
+          summary: "Sonarr download queue is high"
+          description: "Sonarr has {{ $value }} items in queue, which is above the threshold of 20"
+
+      - alert: SonarrDiskSpaceLow
+        expr: sonarr_disk_usage_bytes > 8e12  # 8TB threshold
+        for: 1h
+        labels:
+          severity: warning
+          service: sonarr
+        annotations:
+          summary: "Sonarr disk usage is high"
+          description: "Sonarr is using {{ $value | humanize }}B of disk space"
+
+      # Jellyfin Alerts
+      - alert: JellyfinHighActiveStreams
+        expr: jellyfin_active_streams > 5
+        for: 5m
+        labels:
+          severity: info
+          service: jellyfin
+        annotations:
+          summary: "High number of active streams on Jellyfin"
+          description: "Jellyfin has {{ $value }} active streams"
+
+      - alert: JellyfinNoActivity
+        expr: rate(jellyfin_playback_count_30d[1h]) == 0
+        for: 24h
+        labels:
+          severity: info
+          service: jellyfin
+        annotations:
+          summary: "No Jellyfin activity detected"
+          description: "No playback activity on Jellyfin in the last 24 hours"
+
+      # Exporter health
+      - alert: MediaExporterDown
+        expr: up{job="media-exporter"} == 0
+        for: 5m
+        labels:
+          severity: critical
+          service: exporter
+        annotations:
+          summary: "Media exporter is down"
+          description: "The media services exporter has been down for more than 5 minutes"

@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.pyc
+
+# Environment variables (CONTAINS API KEYS - NEVER COMMIT!)
+.env
+.env.local
+.env.*.local
+*.env
+
+# Old Flask Application (legacy - archived, DO NOT COMMIT)
+old-flask-app/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Docker
+*.log
+
+# Grafana/Prometheus data (if running locally)
+grafana-data/
+prometheus-data/
+
+# Temporary files
+*.tmp
+temp/
+*.bak
