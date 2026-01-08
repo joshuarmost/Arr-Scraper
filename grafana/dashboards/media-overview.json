@@ -1,106 +1,38 @@
 {
-  "annotations": {
-    "list": []
-  },
+  "annotations": {"list": []},
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": null,
   "links": [],
   "panels": [
-    {
-      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
-      "fieldConfig": {
-        "defaults": {
-          "color": {"mode": "thresholds"},
-          "mappings": [],
-          "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}
-        }
-      },
-      "gridPos": {"h": 4, "w": 4, "x": 0, "y": 0},
-      "id": 1,
-      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"},
-      "targets": [{"expr": "radarr_movies_total", "refId": "A"}],
-      "title": "Movies Total",
-      "type": "stat"
-    },
-    {
-      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
-      "fieldConfig": {
-        "defaults": {
-          "color": {"mode": "thresholds"},
-          "mappings": [],
-          "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}
-        }
-      },
-      "gridPos": {"h": 4, "w": 4, "x": 4, "y": 0},
-      "id": 2,
-      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"},
-      "targets": [{"expr": "radarr_movies_downloaded", "refId": "A"}],
-      "title": "Movies Downloaded",
-      "type": "stat"
-    },
-    {
-      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
-      "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}}},
-      "gridPos": {"h": 4, "w": 4, "x": 8, "y": 0},
-      "id": 3,
-      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"},
-      "targets": [{"expr": "sonarr_series_total", "refId": "A"}],
-      "title": "Series Total",
-      "type": "stat"
-    },
-    {
-      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
-      "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}}},
-      "gridPos": {"h": 4, "w": 4, "x": 12, "y": 0},
-      "id": 4,
-      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"},
-      "targets": [{"expr": "sonarr_episodes_total", "refId": "A"}],
-      "title": "Episodes Total",
-      "type": "stat"
-    },
-    {
-      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
-      "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}, "unit": "bytes"}},
-      "gridPos": {"h": 4, "w": 4, "x": 16, "y": 0},
-      "id": 5,
-      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"},
-      "targets": [{"expr": "radarr_disk_usage_bytes", "refId": "A"}],
-      "title": "Movies Disk Usage",
-      "type": "stat"
-    },
-    {
-      "datasource": {"type": "prometheus", "uid": "${ds_prometheus}"},
-      "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}, "unit": "bytes"}},
-      "gridPos": {"h": 4, "w": 4, "x": 20, "y": 0},
-      "id": 6,
-      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"},
-      "targets": [{"expr": "sonarr_disk_usage_bytes", "refId": "A"}],
-      "title": "Series Disk Usage",
-      "type": "stat"
-    },
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "#7c3aed", "value": null}]}}}, "gridPos": {"h": 4, "w": 4, "x": 0, "y": 0}, "id": 1, "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"}, "targets": [{"expr": "radarr_movies_total", "refId": "A", "instant": true}], "title": "Movies Total", "type": "stat"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "#6b21a8", "value": null}]}}}, "gridPos": {"h": 4, "w": 4, "x": 4, "y": 0}, "id": 2, "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"}, "targets": [{"expr": "radarr_movies_downloaded", "refId": "A", "instant": true}], "title": "Movies Downloaded", "type": "stat"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "#7c3aed", "value": null}]}}}, "gridPos": {"h": 4, "w": 4, "x": 8, "y": 0}, "id": 3, "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"}, "targets": [{"expr": "sonarr_series_total", "refId": "A", "instant": true}], "title": "Series Total", "type": "stat"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "#6b21a8", "value": null}]}}}, "gridPos": {"h": 4, "w": 4, "x": 12, "y": 0}, "id": 4, "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"}, "targets": [{"expr": "sonarr_episodes_total", "refId": "A", "instant": true}], "title": "Episodes Total", "type": "stat"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "#312e81", "value": null}]}, "unit": "bytes"}}, "gridPos": {"h": 4, "w": 4, "x": 16, "y": 0}, "id": 5, "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"}, "targets": [{"expr": "radarr_disk_usage_bytes", "refId": "A", "instant": true}], "title": "Movies Disk Usage", "type": "stat"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "#312e81", "value": null}]}, "unit": "bytes"}}, "gridPos": {"h": 4, "w": 4, "x": 20, "y": 0}, "id": 6, "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"}, "targets": [{"expr": "sonarr_disk_usage_bytes", "refId": "A", "instant": true}], "title": "Series Disk Usage", "type": "stat"},
 
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 12, "x": 0, "y": 4}, "id": 7, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "radarr_genres", "legendFormat": "{{label}}", "refId": "A"}], "title": "Movies by Genre", "type": "barchart"},
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 12, "x": 12, "y": 4}, "id": 8, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "radarr_video_codecs", "legendFormat": "{{label}}", "refId": "A"}], "title": "Movies by Video Codec", "type": "barchart"},
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 8, "x": 0, "y": 12}, "id": 9, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "radarr_audio_codecs", "legendFormat": "{{label}}", "refId": "A"}], "title": "Movies by Audio Codec", "type": "barchart"},
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 8, "x": 8, "y": 12}, "id": 10, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "radarr_filetypes", "legendFormat": "{{label}}", "refId": "A"}], "title": "Movies by Filetype", "type": "barchart"},
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 8, "x": 16, "y": 12}, "id": 11, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "radarr_movies_by_year", "legendFormat": "{{label}}", "refId": "A"}], "title": "Movies by Year", "type": "barchart"},
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 24, "x": 0, "y": 20}, "id": 12, "options": {"orientation": "horizontal", "legend": {"show": false}}, "targets": [{"expr": "radarr_cumulative_movies", "legendFormat": "{{label}}", "refId": "A"}], "title": "Cumulative Movies Added", "type": "barchart"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 12, "x": 0, "y": 4}, "id": 7, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "radarr_genres", "legendFormat": "{{label}}", "refId": "A", "instant": true}], "title": "Movies by Genre", "type": "barchart"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 12, "x": 12, "y": 4}, "id": 8, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "radarr_video_codecs", "legendFormat": "{{label}}", "refId": "A", "instant": true}], "title": "Movies by Video Codec", "type": "barchart"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 8, "x": 0, "y": 12}, "id": 9, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "radarr_audio_codecs", "legendFormat": "{{label}}", "refId": "A", "instant": true}], "title": "Movies by Audio Codec", "type": "barchart"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 8, "x": 8, "y": 12}, "id": 10, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "radarr_filetypes", "legendFormat": "{{label}}", "refId": "A", "instant": true}], "title": "Movies by Filetype", "type": "barchart"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 8, "x": 16, "y": 12}, "id": 11, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "radarr_movies_by_year", "legendFormat": "{{label}}", "refId": "A", "instant": true}], "title": "Movies by Year", "type": "barchart"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 24, "x": 0, "y": 20}, "id": 12, "options": {"orientation": "horizontal", "legend": {"show": false}}, "targets": [{"expr": "radarr_cumulative_movies", "legendFormat": "{{label}}", "refId": "A", "instant": true}], "title": "Cumulative Movies Added", "type": "barchart"},
 
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 12, "x": 0, "y": 28}, "id": 13, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "sonarr_genres", "legendFormat": "{{label}}", "refId": "A"}], "title": "Series by Genre", "type": "barchart"},
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 12, "x": 12, "y": 28}, "id": 14, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "sonarr_series_by_status", "legendFormat": "{{label}}", "refId": "A"}], "title": "Series by Status", "type": "barchart"},
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 24, "x": 0, "y": 36}, "id": 15, "options": {"orientation": "horizontal", "legend": {"show": false}}, "targets": [{"expr": "sonarr_cumulative_episodes", "legendFormat": "{{label}}", "refId": "A"}], "title": "Cumulative Episodes Added", "type": "barchart"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 12, "x": 0, "y": 28}, "id": 13, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "sonarr_genres", "legendFormat": "{{label}}", "refId": "A", "instant": true}], "title": "Series by Genre", "type": "barchart"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 12, "x": 12, "y": 28}, "id": 14, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "sonarr_series_by_status", "legendFormat": "{{label}}", "refId": "A", "instant": true}], "title": "Series by Status", "type": "barchart"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 24, "x": 0, "y": 36}, "id": 15, "options": {"orientation": "horizontal", "legend": {"show": false}}, "targets": [{"expr": "sonarr_cumulative_episodes", "legendFormat": "{{label}}", "refId": "A", "instant": true}], "title": "Cumulative Episodes Added", "type": "barchart"},
 
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}}}, "gridPos": {"h": 4, "w": 4, "x": 0, "y": 44}, "id": 16, "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"}, "targets": [{"expr": "jellyfin_active_streams", "refId": "A"}], "title": "Active Streams", "type": "stat"},
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}}}, "gridPos": {"h": 4, "w": 4, "x": 4, "y": 44}, "id": 17, "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"}, "targets": [{"expr": "jellyfin_users_total", "refId": "A"}], "title": "Users Total", "type": "stat"},
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}}}, "gridPos": {"h": 4, "w": 4, "x": 8, "y": 44}, "id": 18, "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"}, "targets": [{"expr": "jellyfin_playback_count_30d", "refId": "A"}], "title": "Playbacks (30d)", "type": "stat"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "#7c3aed", "value": null}]}}}, "gridPos": {"h": 4, "w": 4, "x": 0, "y": 44}, "id": 16, "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"}, "targets": [{"expr": "jellyfin_active_streams", "refId": "A", "instant": true}], "title": "Active Streams", "type": "stat"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "#6b21a8", "value": null}]}}}, "gridPos": {"h": 4, "w": 4, "x": 4, "y": 44}, "id": 17, "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"}, "targets": [{"expr": "jellyfin_users_total", "refId": "A", "instant": true}], "title": "Users Total", "type": "stat"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [], "thresholds": {"mode": "absolute", "steps": [{"color": "#312e81", "value": null}]}}}, "gridPos": {"h": 4, "w": 4, "x": 8, "y": 44}, "id": 18, "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"}, "targets": [{"expr": "jellyfin_playback_count_30d", "refId": "A", "instant": true}], "title": "Playbacks (30d)", "type": "stat"},
 
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 8, "x": 0, "y": 48}, "id": 19, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "jellyfin_playback_methods", "legendFormat": "{{label}}", "refId": "A"}], "title": "Playback Methods (30d)", "type": "barchart"},
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 8, "x": 8, "y": 48}, "id": 20, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "jellyfin_playback_by_hour", "legendFormat": "{{label}}", "refId": "A"}], "title": "Playbacks by Hour (30d)", "type": "barchart"},
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 8, "x": 16, "y": 48}, "id": 21, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "jellyfin_user_play_counts", "legendFormat": "{{label}}", "refId": "A"}], "title": "User Play Counts (30d)", "type": "barchart"},
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 12, "x": 0, "y": 56}, "id": 22, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "jellyfin_top_movies", "legendFormat": "{{label}}", "refId": "A"}], "title": "Top Movies (30d)", "type": "barchart"},
-    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 12, "x": 12, "y": 56}, "id": 23, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "jellyfin_top_shows", "legendFormat": "{{label}}", "refId": "A"}], "title": "Top Shows (30d)", "type": "barchart"}
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 8, "x": 0, "y": 48}, "id": 19, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "jellyfin_playback_methods", "legendFormat": "{{label}}", "refId": "A", "instant": true}], "title": "Playback Methods (30d)", "type": "barchart"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 8, "x": 8, "y": 48}, "id": 20, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "jellyfin_playback_by_hour", "legendFormat": "{{label}}", "refId": "A", "instant": true}], "title": "Playbacks by Hour (30d)", "type": "barchart"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 8, "x": 16, "y": 48}, "id": 21, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "jellyfin_user_play_counts", "legendFormat": "{{label}}", "refId": "A", "instant": true}], "title": "User Play Counts (30d)", "type": "barchart"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 12, "x": 0, "y": 56}, "id": 22, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "jellyfin_top_movies", "legendFormat": "{{label}}", "refId": "A", "instant": true}], "title": "Top Movies (30d)", "type": "barchart"},
+    {"datasource": {"type": "prometheus", "uid": "${ds_prometheus}"}, "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}}}, "gridPos": {"h": 8, "w": 12, "x": 12, "y": 56}, "id": 23, "options": {"orientation": "vertical", "legend": {"show": false}}, "targets": [{"expr": "jellyfin_top_shows", "legendFormat": "{{label}}", "refId": "A", "instant": true}], "title": "Top Shows (30d)", "type": "barchart"}
   ],
   "refresh": "1m",
   "schemaVersion": 38,
@@ -110,9 +42,9 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "Prometheus",
-          "value": "${ds_prometheus}"
+          "value": "Prometheus"
         },
         "hide": 0,
         "includeAll": false,
@@ -137,5 +69,5 @@
   "timezone": "",
   "title": "Media Overview",
   "uid": "media-overview",
-  "version": 1
+  "version": 2
 }
