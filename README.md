@@ -23,19 +23,6 @@ docker run -d \
 
 Metrics available at: `http://localhost:9877/metrics`
 
-### Option 2: Full Stack (Exporter + Prometheus + Grafana)
-
-```bash
-git clone https://github.com/joshuarmost/Arr-Scraper
-cd Arr-Scraper
-
-# Configure your services
-cp .env.example .env
-nano .env  # Add your URLs and API keys
-
-# Start everything
-docker-compose up -d
-```
 
 **Access:**
 - Grafana: http://localhost:3000 (login: admin/admin)
@@ -56,7 +43,13 @@ scrape_configs:
 
 ## Grafana Dashboards
 
-Pre-built dashboards are in `grafana/dashboards/`:
+Pre-built dashboards are in `grafana/dashboards/`.
+
+### Direct Import URL (Unified Dashboard)
+
+Import the unified dashboard directly in Grafana using this URL:
+
+https://raw.githubusercontent.com/joshuarmost/Arr-Scraper/main/grafana/dashboards/media-overview.json
 
 ### How to Import Dashboards
 
@@ -81,9 +74,7 @@ Pre-built dashboards are in `grafana/dashboards/`:
 - No manual import needed if using `docker-compose.yml`
 
 ### Available Dashboards
-- **radarr-overview.json** - Movies, disk usage, codecs, genres
-- **sonarr-overview.json** - Series, episodes, status, codecs
-- **jellyfin-overview.json** - Streams, users, playback stats
+- **media-overview.json** - Unified view: Radarr, Sonarr, Jellyfin stats and breakdowns
 
 ## Configuration
 
