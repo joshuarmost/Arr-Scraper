@@ -1372,7 +1372,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "continuous-GrYlRd"
+            "mode": "continuous-BlPu"
           },
           "custom": {
             "axisBorderShow": false,
@@ -1429,7 +1429,7 @@
           "displayMode": "list",
           "placement": "bottom",
           "show": false,
-          "showLegend": true
+          "showLegend": false
         },
         "orientation": "vertical",
         "showValue": "auto",
@@ -1438,6 +1438,9 @@
           "hideZeros": false,
           "mode": "single",
           "sort": "none"
+        },
+        "xAxis": {
+          "show": true
         },
         "xTickLabelRotation": 0,
         "xTickLabelSpacing": 0
