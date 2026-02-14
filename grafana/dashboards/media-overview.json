@@ -1372,7 +1372,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "continuous-GrYlRd"
           },
           "custom": {
             "axisBorderShow": false,
@@ -1452,6 +1452,7 @@
         }
       ],
       "title": "Playbacks by Hour (30d)",
+      "transformations": [],
       "type": "barchart"
     },
     {
