@@ -474,13 +474,23 @@ class JellyfinCollector:
                         except:
                             pass
                 
-                # Create ordered dict with all 24 hours in HH:00 format
-                hour_labels = {}
-                for hour in range(24):
-                    hour_label = f"{hour:02d}:00"
-                    hour_labels[hour_label] = hour_counts.get(hour, 0)
+                # Condense into 12 time periods (2-hour blocks)
+                time_periods = {
+                    "Midnight (12-2am)": hour_counts.get(0, 0) + hour_counts.get(1, 0),
+                    "Early Morning (2-4am)": hour_counts.get(2, 0) + hour_counts.get(3, 0),
+                    "Dawn (4-6am)": hour_counts.get(4, 0) + hour_counts.get(5, 0),
+                    "Morning (6-8am)": hour_counts.get(6, 0) + hour_counts.get(7, 0),
+                    "Late Morning (8-10am)": hour_counts.get(8, 0) + hour_counts.get(9, 0),
+                    "Midday (10am-12pm)": hour_counts.get(10, 0) + hour_counts.get(11, 0),
+                    "Afternoon (12-2pm)": hour_counts.get(12, 0) + hour_counts.get(13, 0),
+                    "Late Afternoon (2-4pm)": hour_counts.get(14, 0) + hour_counts.get(15, 0),
+                    "Evening (4-6pm)": hour_counts.get(16, 0) + hour_counts.get(17, 0),
+                    "Night (6-8pm)": hour_counts.get(18, 0) + hour_counts.get(19, 0),
+                    "Late Night (8-10pm)": hour_counts.get(20, 0) + hour_counts.get(21, 0),
+                    "Very Late (10pm-12am)": hour_counts.get(22, 0) + hour_counts.get(23, 0),
+                }
                 
-                metrics['jellyfin_playback_by_hour'] = hour_labels
+                metrics['jellyfin_playback_by_hour'] = time_periods
         except Exception as e:
             logger.warning(f"Could not fetch playback stats (user_usage_stats plugin may not be installed): {e}")
         
