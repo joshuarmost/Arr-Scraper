@@ -106,7 +106,22 @@ class RadarrCollector:
             year = movie.get("year")
             if year:
                 year_counts[str(year)] += 1
-        metrics['radarr_movies_by_year'] = dict(year_counts)
+
+        # Keep the labeled metric, but ensure a stable year order.
+        sorted_year_counts = []
+        for year_label, count in year_counts.items():
+            try:
+                year_num = int(year_label)
+            except (TypeError, ValueError):
+                continue
+            sorted_year_counts.append((year_num, count))
+        sorted_year_counts.sort(key=lambda item: item[0])
+
+        metrics['radarr_movies_by_year'] = {str(year): count for year, count in sorted_year_counts}
+
+        # Emit per-year metrics so Grafana can order by metric name without transforms.
+        for year, count in sorted_year_counts:
+            metrics[f"radarr_movies_by_year_{year}"] = count
         
         # File types and codecs
         filetype_counts = defaultdict(int)
