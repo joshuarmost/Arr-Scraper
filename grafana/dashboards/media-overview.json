@@ -1445,7 +1445,7 @@
       "pluginVersion": "12.3.3",
       "targets": [
         {
-          "expr": "label_replace({__name__=~\"jellyfin_playback_by_hour_\\\\d{2}\"}, \"hour\", \"$1\", \"__name__\", \"jellyfin_playback_by_hour_(\\\\d{2})\")",
+          "expr": "label_replace({__name__=~\"jellyfin_playback_by_hour_\\\\d{2}\"}, \"hour\", \"$1:00\", \"__name__\", \"jellyfin_playback_by_hour_(\\\\d{2})\")",
           "instant": true,
           "legendFormat": "{{hour}}",
           "refId": "A"
