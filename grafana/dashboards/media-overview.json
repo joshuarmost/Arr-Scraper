@@ -1448,14 +1448,27 @@
       "pluginVersion": "12.3.3",
       "targets": [
         {
-          "expr": "label_replace({__name__=~\"jellyfin_playback_by_hour_\\\\d{2}\"}, \"hour\", \"$1:00\", \"__name__\", \"jellyfin_playback_by_hour_(\\\\d{2})\")",
+          "expr": "jellyfin_playback_by_hour",
           "instant": true,
-          "legendFormat": "{{hour}}",
+          "legendFormat": "{{label}}",
           "refId": "A"
         }
       ],
       "title": "Playbacks by Hour (30d)",
-      "transformations": [],
+      "transformations": [
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "field": "Time",
+                "desc": false
+              }
+            ]
+          }
+        }
+      ],
       "type": "barchart"
     },
     {

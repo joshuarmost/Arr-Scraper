@@ -474,12 +474,13 @@ class JellyfinCollector:
                         except:
                             pass
                 
-                # Keep the labeled metric for compatibility
-                metrics['jellyfin_playback_by_hour'] = dict(hour_counts)
-                
-                # Emit per-hour metrics with all 24 hours (0-23) present
+                # Create ordered dict with all 24 hours in HH:00 format
+                hour_labels = {}
                 for hour in range(24):
-                    metrics[f'jellyfin_playback_by_hour_{hour:02d}'] = hour_counts.get(hour, 0)
+                    hour_label = f"{hour:02d}:00"
+                    hour_labels[hour_label] = hour_counts.get(hour, 0)
+                
+                metrics['jellyfin_playback_by_hour'] = hour_labels
         except Exception as e:
             logger.warning(f"Could not fetch playback stats (user_usage_stats plugin may not be installed): {e}")
         
