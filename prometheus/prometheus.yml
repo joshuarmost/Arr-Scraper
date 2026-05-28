@@ -25,12 +25,23 @@ scrape_configs:
         labels:
           service: 'prometheus'
 
-  # Media Services Exporter
-  - job_name: 'media-exporter'
+  # Old scraparr job - drop this (deprecated)
+  - job_name: 'scraparr'
     scrape_interval: 60s
     scrape_timeout: 30s
     static_configs:
-      - targets: ['exporter:9877']
+      - targets: ['192.168.1.78:7100']
+    metric_relabel_configs:
+      - source_labels: [__name__]
+        regex: '.*'
+        action: drop
+
+  # Media Services Exporter
+  - job_name: 'arr_scraper'
+    scrape_interval: 60s
+    scrape_timeout: 30s
+    static_configs:
+      - targets: ['192.168.1.78:9877']
         labels:
           service: 'media-services'
           environment: 'production'
