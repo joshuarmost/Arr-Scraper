@@ -205,13 +205,7 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "mode": "palette",
-                    "customPaletteColors": [
-                      "#a057eb",
-                      "#431ec6",
-                      "#1b1297",
-                      "#130e43"
-                    ]
+                    "mode": "palette-classic"
                   },
                   "custom": {
                     "hideFrom": {
@@ -1984,29 +1978,14 @@
               },
               "fieldConfig": {
                 "defaults": {
-                  "thresholds": {
-                    "mode": "steps",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "#a057eb"
-                      },
-                      {
-                        "value": 1,
-                        "color": "#431ec6"
-                      },
-                      {
-                        "value": 2,
-                        "color": "#1b1297"
-                      },
-                      {
-                        "value": 3,
-                        "color": "#130e43"
-                      }
-                    ]
-                  },
                   "color": {
-                    "mode": "thresholds"
+                    "mode": "palette",
+                    "customPaletteColors": [
+                      "#a057eb",
+                      "#431ec6",
+                      "#1b1297",
+                      "#130e43"
+                    ]
                   },
                   "custom": {
                     "hideFrom": {
@@ -2092,29 +2071,8 @@
               },
               "fieldConfig": {
                 "defaults": {
-                  "thresholds": {
-                    "mode": "steps",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "#a057eb"
-                      },
-                      {
-                        "value": 1,
-                        "color": "#431ec6"
-                      },
-                      {
-                        "value": 2,
-                        "color": "#1b1297"
-                      },
-                      {
-                        "value": 3,
-                        "color": "#130e43"
-                      }
-                    ]
-                  },
                   "color": {
-                    "mode": "thresholds"
+                    "mode": "palette-classic"
                   },
                   "custom": {
                     "hideFrom": {
@@ -2217,29 +2175,8 @@
               },
               "fieldConfig": {
                 "defaults": {
-                  "thresholds": {
-                    "mode": "steps",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "#a057eb"
-                      },
-                      {
-                        "value": 1,
-                        "color": "#431ec6"
-                      },
-                      {
-                        "value": 2,
-                        "color": "#1b1297"
-                      },
-                      {
-                        "value": 3,
-                        "color": "#130e43"
-                      }
-                    ]
-                  },
                   "color": {
-                    "mode": "thresholds"
+                    "mode": "palette-classic"
                   },
                   "custom": {
                     "hideFrom": {
