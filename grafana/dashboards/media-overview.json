@@ -1568,7 +1568,7 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "sum(sonarr_episodes_downloaded)",
+                        "expr": "sonarr_series_total",
                         "instant": true
                       }
                     },
