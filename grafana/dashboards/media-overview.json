@@ -5,8 +5,8 @@
     "name": "media-overview",
     "namespace": "default",
     "uid": "gUqrFDtcAapn1xYyGpSqrdMtZtXXmjJXoMVw0d6IWk0X",
-    "resourceVersion": "1779998098229009",
-    "generation": 91,
+    "resourceVersion": "1780011081376008",
+    "generation": 94,
     "creationTimestamp": "2026-01-08T09:56:06Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "15"
@@ -16,7 +16,7 @@
       "grafana.app/folder": "",
       "grafana.app/saved-from-ui": "Grafana v13.0.1+security-01 (9bbe672d)",
       "grafana.app/updatedBy": "user:eep0mhox1n280f",
-      "grafana.app/updatedTimestamp": "2026-05-28T19:54:58Z"
+      "grafana.app/updatedTimestamp": "2026-05-28T23:31:21Z"
     }
   },
   "spec": {
@@ -184,7 +184,7 @@
                   "displayMode": "list",
                   "placement": "right",
                   "show": true,
-                  "showLegend": true,
+                  "showLegend": false,
                   "values": []
                 },
                 "pieType": "donut",
@@ -505,7 +505,7 @@
                   "displayMode": "list",
                   "placement": "right",
                   "show": true,
-                  "showLegend": true,
+                  "showLegend": false,
                   "values": []
                 },
                 "pieType": "donut",
@@ -1162,7 +1162,7 @@
                   "displayMode": "list",
                   "placement": "right",
                   "show": true,
-                  "showLegend": true,
+                  "showLegend": false,
                   "values": []
                 },
                 "pieType": "donut",
@@ -1250,7 +1250,7 @@
                   "displayMode": "list",
                   "placement": "right",
                   "show": true,
-                  "showLegend": true,
+                  "showLegend": false,
                   "values": []
                 },
                 "pieType": "donut",
@@ -1338,7 +1338,7 @@
                   "displayMode": "list",
                   "placement": "right",
                   "show": true,
-                  "showLegend": true,
+                  "showLegend": false,
                   "values": []
                 },
                 "pieType": "donut",
@@ -1574,7 +1574,7 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "sum(sonarr_episodes_downloaded)",
+                        "expr": "sonarr_series_total",
                         "instant": true
                       }
                     },
@@ -1964,7 +1964,7 @@
                   "displayMode": "list",
                   "placement": "right",
                   "show": true,
-                  "showLegend": true,
+                  "showLegend": false,
                   "values": []
                 },
                 "pieType": "donut",
@@ -2053,7 +2053,7 @@
                   "displayMode": "list",
                   "placement": "right",
                   "show": true,
-                  "showLegend": true,
+                  "showLegend": false,
                   "values": []
                 },
                 "pieType": "donut",
@@ -2159,7 +2159,7 @@
                   "displayMode": "list",
                   "placement": "right",
                   "show": true,
-                  "showLegend": true,
+                  "showLegend": false,
                   "values": []
                 },
                 "pieType": "donut",
