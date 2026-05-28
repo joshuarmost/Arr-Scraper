@@ -653,29 +653,29 @@ class MediaExporter:
         # Combined media breakdowns for shared dashboard pies
         combined_metrics = {}
         combined_genres = self._merge_metric_maps(
-            radarr_metrics.get('genres', {}),
-            sonarr_metrics.get('genres', {})
+            radarr_metrics.get('radarr_genres', {}),
+            sonarr_metrics.get('sonarr_genres', {})
         )
         if combined_genres:
             combined_metrics['media_genres'] = combined_genres
 
         combined_filetypes = self._merge_metric_maps(
-            radarr_metrics.get('filetypes', {}),
-            sonarr_metrics.get('filetypes', {})
+            radarr_metrics.get('radarr_filetypes', {}),
+            sonarr_metrics.get('sonarr_filetypes', {})
         )
         if combined_filetypes:
             combined_metrics['media_filetypes'] = combined_filetypes
 
         combined_video_codecs = self._merge_metric_maps(
-            radarr_metrics.get('video_codecs', {}),
-            sonarr_metrics.get('video_codecs', {})
+            radarr_metrics.get('radarr_video_codecs', {}),
+            sonarr_metrics.get('sonarr_video_codecs', {})
         )
         if combined_video_codecs:
             combined_metrics['media_video_codecs'] = combined_video_codecs
 
         combined_audio_codecs = self._merge_metric_maps(
-            radarr_metrics.get('audio_codecs', {}),
-            sonarr_metrics.get('audio_codecs', {})
+            radarr_metrics.get('radarr_audio_codecs', {}),
+            sonarr_metrics.get('sonarr_audio_codecs', {})
         )
         if combined_audio_codecs:
             combined_metrics['media_audio_codecs'] = combined_audio_codecs
