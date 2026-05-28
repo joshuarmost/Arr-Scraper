@@ -5,8 +5,8 @@
     "name": "media-overview",
     "namespace": "default",
     "uid": "gUqrFDtcAapn1xYyGpSqrdMtZtXXmjJXoMVw0d6IWk0X",
-    "resourceVersion": "1779990589885988",
-    "generation": 70,
+    "resourceVersion": "1779998098229009",
+    "generation": 91,
     "creationTimestamp": "2026-01-08T09:56:06Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "15"
@@ -16,7 +16,7 @@
       "grafana.app/folder": "",
       "grafana.app/saved-from-ui": "Grafana v13.0.1+security-01 (9bbe672d)",
       "grafana.app/updatedBy": "user:eep0mhox1n280f",
-      "grafana.app/updatedTimestamp": "2026-05-28T17:49:49Z"
+      "grafana.app/updatedTimestamp": "2026-05-28T19:54:58Z"
     }
   },
   "spec": {
@@ -386,7 +386,7 @@
                   "displayMode": "list",
                   "placement": "bottom",
                   "show": true,
-                  "showLegend": true
+                  "showLegend": false
                 },
                 "tooltip": {
                   "hideZeros": false,
@@ -917,7 +917,7 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "jellyfin_playback_methods",
+                        "expr": "sum by (label) (jellyfin_playback_methods)",
                         "instant": true,
                         "legendFormat": "{{label}}"
                       }
@@ -1004,7 +1004,8 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "jellyfin_playback_by_hour",
+                        "editorMode": "code",
+                        "expr": "sum by (label) (jellyfin_playback_by_hour)",
                         "instant": true,
                         "legendFormat": "{{label}}"
                       }
@@ -1182,7 +1183,8 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "mode": "palette-classic"
+                    "mode": "shades",
+                    "fixedColor": "#aa6dfb"
                   },
                   "custom": {
                     "hideFrom": {
@@ -1269,7 +1271,8 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "mode": "palette-classic"
+                    "mode": "shades",
+                    "fixedColor": "#a74dff"
                   },
                   "custom": {
                     "hideFrom": {
@@ -1356,7 +1359,8 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "mode": "palette-classic"
+                    "mode": "shades",
+                    "fixedColor": "#3e7eff"
                   },
                   "custom": {
                     "hideFrom": {
