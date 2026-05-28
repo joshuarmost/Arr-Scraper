@@ -7,6 +7,7 @@ Exports metrics from Radarr, Sonarr, and Jellyfin for Prometheus scraping
 import os
 import time
 import logging
+import statistics
 from datetime import datetime
 from collections import defaultdict
 from typing import Dict, List, Any
@@ -198,15 +199,17 @@ class RadarrCollector:
             if download_times:
                 metrics['radarr_avg_download_time_seconds'] = sum(download_times) / len(download_times)
         
-        # History - average time from grab to import
-        history = self._get("history", {"pageSize": 100, "eventType": 1})  # eventType 1 = grabbed
+        # History - rolling median time from grab to import for recent imports.
+        # A rolling window avoids stale outliers skewing the stat for days.
+        history = self._get("history", {"pageSize": 250, "eventType": 1})  # eventType 1 = grabbed
         if history and history.get("records"):
-            import_times = []
             grabbed_events = {r["movieId"]: r["date"] for r in history["records"] if r.get("eventType") == "grabbed"}
-            
-            import_history = self._get("history", {"pageSize": 100, "eventType": 3})  # eventType 3 = imported
+
+            import_history = self._get("history", {"pageSize": 250, "eventType": 3})  # eventType 3 = imported
             if import_history and import_history.get("records"):
-                for record in import_history["records"]:
+                import_times = []
+
+                for record in import_history["records"][:20]:
                     movie_id = record.get("movieId")
                     if movie_id in grabbed_events:
                         try:
@@ -217,9 +220,10 @@ class RadarrCollector:
                                 import_times.append(duration)
                         except:
                             pass
-            
-            if import_times:
-                metrics['radarr_avg_import_time_seconds'] = sum(import_times) / len(import_times)
+
+                if import_times:
+                    metrics['radarr_recent_import_time_seconds'] = statistics.median(import_times)
+                    metrics['radarr_recent_import_time_samples'] = len(import_times)
         
         logger.info(f"Collected Radarr metrics: {total_movies} total movies, {len(movies_with_files)} downloaded")
         return metrics

@@ -94,64 +94,6 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#6b21a8",
-                "value": 0
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 4,
-        "y": 0
-      },
-      "id": 2,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.3",
-      "targets": [
-        {
-          "expr": "sum(radarr_movies_downloaded)",
-          "instant": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Movies Downloaded",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
                 "color": "#7c3aed",
                 "value": 0
               }
@@ -163,7 +105,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 8,
+        "x": 4,
         "y": 0
       },
       "id": 3,
@@ -221,7 +163,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 12,
+        "x": 8,
         "y": 0
       },
       "id": 4,
@@ -280,7 +222,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 16,
+        "x": 12,
         "y": 0
       },
       "id": 5,
@@ -339,7 +281,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 20,
+        "x": 16,
         "y": 0
       },
       "id": 6,
@@ -1186,8 +1128,8 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 8,
-        "x": 16,
+        "w": 12,
+        "x": 12,
         "y": 44
       },
       "id": 21,
@@ -1255,7 +1197,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 48
+        "y": 52
       },
       "id": 19,
       "options": {
@@ -1349,7 +1291,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 48
+        "y": 52
       },
       "id": 20,
       "options": {
@@ -1429,7 +1371,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 56
+        "y": 60
       },
       "id": 22,
       "options": {
@@ -1496,7 +1438,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 56
+        "y": 60
       },
       "id": 23,
       "options": {
@@ -1562,7 +1504,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 64
+        "y": 68
       },
       "id": 24,
       "options": {
@@ -1637,8 +1579,8 @@
       "gridPos": {
         "h": 4,
         "w": 8,
-        "x": 0,
-        "y": 72
+        "x": 16,
+        "y": 52
       },
       "id": 25,
       "options": {
@@ -1658,12 +1600,12 @@
       "pluginVersion": "12.3.3",
       "targets": [
         {
-          "expr": "radarr_avg_import_time_seconds",
+          "expr": "radarr_recent_import_time_seconds",
           "instant": true,
           "refId": "A"
         }
       ],
-      "title": "Avg Time: Request to Import",
+      "title": "Recent Import Time (Rolling Median)",
       "type": "stat"
     }
   ],
