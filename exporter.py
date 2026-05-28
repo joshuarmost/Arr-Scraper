@@ -271,14 +271,21 @@ class SonarrCollector:
         
         for show in series:
             stats = show.get("statistics", {})
-            ep_count = stats.get("episodeCount", 0)
+            # Use the episode endpoint to get an absolute episode count (includes monitored and unmonitored)
+            episodes = self._get("episode", {"seriesId": show.get("id")})
+            if isinstance(episodes, list):
+                ep_count = len(episodes)
+            else:
+                # Fall back to the statistics field if the endpoint fails
+                ep_count = stats.get("episodeCount", 0)
+
             ep_file_count = stats.get("episodeFileCount", 0)
             size = stats.get("sizeOnDisk", 0)
-            
+
             total_episodes += ep_count
             total_episode_files += ep_file_count
             total_size += size
-            
+
             if size > 0:
                 series_sizes.append(size)
             if ep_count > 0:
