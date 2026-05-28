@@ -325,28 +325,30 @@ class SonarrCollector:
         audio_codec_counts = defaultdict(int)
         
         for show in series:
-            episodes = self._get("episode", {"seriesId": show["id"]})
-            if episodes:
-                for ep in episodes:
-                    ep_file = ep.get("episodeFile")
-                    if ep_file:
-                        # File type
-                        path = ep_file.get("relativePath", "")
-                        if path:
-                            ext = path.split(".")[-1].lower()
-                            filetype_counts[ext] += 1
-                        
-                        # Codecs
-                        media_info = ep_file.get("mediaInfo", {})
-                        video_codec = media_info.get("videoCodec", "Unknown")
-                        audio_codec = media_info.get("audioCodec", "Unknown")
-                        
-                        # Normalize video codec
-                        codec_map = {'x265': 'HEVC', 'h265': 'HEVC', 'x264': 'H.264', 'h264': 'H.264'}
-                        video_codec = codec_map.get(video_codec, video_codec)
-                        
-                        video_codec_counts[video_codec] += 1
-                        audio_codec_counts[audio_codec] += 1
+            # Use Sonarr's episodefile endpoint to get actual file records (includes mediaInfo)
+            episode_files = self._get("episodefile", {"seriesId": show["id"]})
+            if episode_files:
+                for ep_file in episode_files:
+                    if not ep_file:
+                        continue
+
+                    # File type
+                    path = ep_file.get("relativePath", "")
+                    if path:
+                        ext = path.split(".")[-1].lower()
+                        filetype_counts[ext] += 1
+
+                    # Codecs
+                    media_info = ep_file.get("mediaInfo", {})
+                    video_codec = media_info.get("videoCodec", "Unknown")
+                    audio_codec = media_info.get("audioCodec", "Unknown")
+
+                    # Normalize video codec
+                    codec_map = {'x265': 'HEVC', 'h265': 'HEVC', 'x264': 'H.264', 'h264': 'H.264'}
+                    video_codec = codec_map.get(video_codec, video_codec)
+
+                    video_codec_counts[video_codec] += 1
+                    audio_codec_counts[audio_codec] += 1
         
         if filetype_counts:
             metrics['sonarr_filetypes'] = dict(filetype_counts)
