@@ -477,7 +477,7 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "sonarr_series_by_status",
+                        "expr": "sort_desc(sonarr_series_by_status)",
                         "instant": true,
                         "legendFormat": "{{label}}"
                       }
@@ -1134,7 +1134,7 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "jellyfin_user_play_counts",
+                        "expr": "sort_desc(jellyfin_user_play_counts)",
                         "instant": true,
                         "legendFormat": "{{label}}"
                       }
@@ -1222,7 +1222,7 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "jellyfin_top_movies",
+                        "expr": "sort_desc(jellyfin_top_movies)",
                         "instant": true,
                         "legendFormat": "{{label}}"
                       }
@@ -1310,7 +1310,7 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "jellyfin_top_shows",
+                        "expr": "sort_desc(jellyfin_top_shows)",
                         "instant": true,
                         "legendFormat": "{{label}}"
                       }
