@@ -205,9 +205,13 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "mode": "palette",
-                    "palette": "purples",
-                    "customPaletteColors": ["#130e43", "#1b1297", "#431ec6", "#a057eb"]
+                    "mode": "gradient",
+                    "steps": [
+                      {"value": 0, "color": "#130e43"},
+                      {"value": 1, "color": "#1b1297"},
+                      {"value": 2, "color": "#431ec6"},
+                      {"value": 3, "color": "#a057eb"}
+                    ]
                   },
                   "custom": {
                     "hideFrom": {
@@ -1981,9 +1985,13 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "mode": "palette",
-                    "palette": "purples",
-                    "customPaletteColors": ["#130e43", "#1b1297", "#431ec6", "#a057eb"]
+                    "mode": "gradient",
+                    "steps": [
+                      {"value": 0, "color": "#130e43"},
+                      {"value": 1, "color": "#1b1297"},
+                      {"value": 2, "color": "#431ec6"},
+                      {"value": 3, "color": "#a057eb"}
+                    ]
                   },
                   "custom": {
                     "hideFrom": {
@@ -2070,9 +2078,13 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "mode": "palette",
-                    "palette": "purples",
-                    "customPaletteColors": ["#130e43", "#1b1297", "#431ec6", "#a057eb"]
+                    "mode": "gradient",
+                    "steps": [
+                      {"value": 0, "color": "#130e43"},
+                      {"value": 1, "color": "#1b1297"},
+                      {"value": 2, "color": "#431ec6"},
+                      {"value": 3, "color": "#a057eb"}
+                    ]
                   },
                   "custom": {
                     "hideFrom": {
@@ -2176,9 +2188,13 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "mode": "palette",
-                    "palette": "purples",
-                    "customPaletteColors": ["#130e43", "#1b1297", "#431ec6", "#a057eb"]
+                    "mode": "gradient",
+                    "steps": [
+                      {"value": 0, "color": "#130e43"},
+                      {"value": 1, "color": "#1b1297"},
+                      {"value": 2, "color": "#431ec6"},
+                      {"value": 3, "color": "#a057eb"}
+                    ]
                   },
                   "custom": {
                     "hideFrom": {
