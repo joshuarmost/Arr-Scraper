@@ -5,8 +5,8 @@
     "name": "media-overview",
     "namespace": "default",
     "uid": "gUqrFDtcAapn1xYyGpSqrdMtZtXXmjJXoMVw0d6IWk0X",
-    "resourceVersion": "1780011081376008",
-    "generation": 94,
+    "resourceVersion": "1780011906785009",
+    "generation": 98,
     "creationTimestamp": "2026-01-08T09:56:06Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "15"
@@ -16,7 +16,7 @@
       "grafana.app/folder": "",
       "grafana.app/saved-from-ui": "Grafana v13.0.1+security-01 (9bbe672d)",
       "grafana.app/updatedBy": "user:eep0mhox1n280f",
-      "grafana.app/updatedTimestamp": "2026-05-28T23:31:21Z"
+      "grafana.app/updatedTimestamp": "2026-05-28T23:45:06Z"
     }
   },
   "spec": {
@@ -1574,7 +1574,8 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "sonarr_series_total",
+                        "editorMode": "code",
+                        "expr": "sonarr_series\r\n",
                         "instant": true
                       }
                     },
@@ -1619,7 +1620,7 @@
                         "color": "#130e43"
                       },
                       {
-                        "value": 1000,
+                        "value": 100,
                         "color": "#1b1297"
                       },
                       {
