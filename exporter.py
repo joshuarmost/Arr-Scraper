@@ -576,6 +576,19 @@ class MediaExporter:
         if name not in self.gauges:
             self.gauges[name] = Gauge(name, description, labels or [])
         return self.gauges[name]
+
+    def _merge_metric_maps(self, *metric_maps: Dict[str, Any]) -> Dict[str, int]:
+        """Merge multiple label->value maps into a single summed map."""
+        combined = defaultdict(int)
+        for metric_map in metric_maps:
+            if not metric_map:
+                continue
+
+            for label, value in metric_map.items():
+                if isinstance(value, (int, float)):
+                    combined[str(label)] += value
+
+        return dict(combined)
     
     def export_metrics(self, metrics: Dict[str, Any], prefix: str):
         """Export metrics to Prometheus"""
@@ -608,6 +621,10 @@ class MediaExporter:
     def collect_and_export(self):
         """Collect metrics from all sources and export"""
         logger.info("Starting metric collection...")
+
+        radarr_metrics = {}
+        sonarr_metrics = {}
+        jellyfin_metrics = {}
         
         # Collect from Radarr
         if self.radarr:
@@ -632,6 +649,39 @@ class MediaExporter:
                 self.export_metrics(jellyfin_metrics, 'jellyfin')
             except Exception as e:
                 logger.error(f"Error collecting Jellyfin metrics: {e}")
+
+        # Combined media breakdowns for shared dashboard pies
+        combined_metrics = {}
+        combined_genres = self._merge_metric_maps(
+            radarr_metrics.get('genres', {}),
+            sonarr_metrics.get('genres', {})
+        )
+        if combined_genres:
+            combined_metrics['media_genres'] = combined_genres
+
+        combined_filetypes = self._merge_metric_maps(
+            radarr_metrics.get('filetypes', {}),
+            sonarr_metrics.get('filetypes', {})
+        )
+        if combined_filetypes:
+            combined_metrics['media_filetypes'] = combined_filetypes
+
+        combined_video_codecs = self._merge_metric_maps(
+            radarr_metrics.get('video_codecs', {}),
+            sonarr_metrics.get('video_codecs', {})
+        )
+        if combined_video_codecs:
+            combined_metrics['media_video_codecs'] = combined_video_codecs
+
+        combined_audio_codecs = self._merge_metric_maps(
+            radarr_metrics.get('audio_codecs', {}),
+            sonarr_metrics.get('audio_codecs', {})
+        )
+        if combined_audio_codecs:
+            combined_metrics['media_audio_codecs'] = combined_audio_codecs
+
+        if combined_metrics:
+            self.export_metrics(combined_metrics, '')
         
         logger.info("Metric collection completed")
     

@@ -429,13 +429,13 @@
       "pluginVersion": "12.3.3",
       "targets": [
         {
-          "expr": "radarr_genres",
+          "expr": "media_genres",
           "instant": true,
           "legendFormat": "{{label}}",
           "refId": "A"
         }
       ],
-      "title": "Movies by Genre",
+      "title": "Media by Genre",
       "type": "piechart"
     },
     {
@@ -496,13 +496,13 @@
       "pluginVersion": "12.3.3",
       "targets": [
         {
-          "expr": "radarr_video_codecs",
+          "expr": "media_video_codecs",
           "instant": true,
           "legendFormat": "{{label}}",
           "refId": "A"
         }
       ],
-      "title": "Movies by Video Codec",
+      "title": "Media by Video Codec",
       "type": "piechart"
     },
     {
@@ -563,13 +563,13 @@
       "pluginVersion": "12.3.3",
       "targets": [
         {
-          "expr": "radarr_audio_codecs",
+          "expr": "media_audio_codecs",
           "instant": true,
           "legendFormat": "{{label}}",
           "refId": "A"
         }
       ],
-      "title": "Movies by Audio Codec",
+      "title": "Media by Audio Codec",
       "type": "piechart"
     },
     {
@@ -630,13 +630,13 @@
       "pluginVersion": "12.3.3",
       "targets": [
         {
-          "expr": "radarr_filetypes",
+          "expr": "media_filetypes",
           "instant": true,
           "legendFormat": "{{label}}",
           "refId": "A"
         }
       ],
-      "title": "Movies by Filetype",
+      "title": "Media by Filetype",
       "type": "piechart"
     },
     {
@@ -827,73 +827,6 @@
       ],
       "title": "Movies Library Size Over Time",
       "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${ds_prometheus}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 28
-      },
-      "id": 13,
-      "options": {
-        "displayLabels": [
-          "name",
-          "percent"
-        ],
-        "legend": {
-          "displayMode": "list",
-          "placement": "right",
-          "show": true,
-          "showLegend": true,
-          "values": []
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "sort": "desc",
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.3.3",
-      "targets": [
-        {
-          "expr": "sonarr_genres",
-          "instant": true,
-          "legendFormat": "{{label}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Series by Genre",
-      "type": "piechart"
     },
     {
       "datasource": {
