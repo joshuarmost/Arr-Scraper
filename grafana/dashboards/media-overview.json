@@ -71,7 +71,7 @@
       "pluginVersion": "12.3.3",
       "targets": [
         {
-          "expr": "max(radarr_movies_total)",
+          "expr": "sum(radarr_movies_downloaded)",
           "instant": true,
           "refId": "A"
         }
@@ -187,7 +187,7 @@
       "pluginVersion": "12.3.3",
       "targets": [
         {
-          "expr": "sum(sonarr_series_total)",
+          "expr": "sum(sonarr_episodes_downloaded)",
           "instant": true,
           "refId": "A"
         }
@@ -245,7 +245,7 @@
       "pluginVersion": "12.3.3",
       "targets": [
         {
-          "expr": "max(sonarr_episodes_total)",
+          "expr": "sum(sonarr_episodes_downloaded)",
           "instant": true,
           "refId": "A"
         }
@@ -429,7 +429,7 @@
       "pluginVersion": "12.3.3",
       "targets": [
         {
-          "expr": "media_genres",
+          "expr": "sum by (label) (media_genres)",
           "instant": true,
           "legendFormat": "{{label}}",
           "refId": "A"
@@ -496,7 +496,7 @@
       "pluginVersion": "12.3.3",
       "targets": [
         {
-          "expr": "media_video_codecs",
+          "expr": "sum by (label) (media_video_codecs)",
           "instant": true,
           "legendFormat": "{{label}}",
           "refId": "A"
@@ -563,7 +563,7 @@
       "pluginVersion": "12.3.3",
       "targets": [
         {
-          "expr": "media_audio_codecs",
+          "expr": "sum by (label) (media_audio_codecs)",
           "instant": true,
           "legendFormat": "{{label}}",
           "refId": "A"
@@ -630,7 +630,7 @@
       "pluginVersion": "12.3.3",
       "targets": [
         {
-          "expr": "media_filetypes",
+          "expr": "sum by (label) (media_filetypes)",
           "instant": true,
           "legendFormat": "{{label}}",
           "refId": "A"
