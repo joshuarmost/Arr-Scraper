@@ -156,7 +156,7 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "sum by (label) (media_filetypes)",
+                        "expr": "sort_desc(sum by (label) (media_filetypes))",
                         "instant": true,
                         "legendFormat": "{{label}}"
                       }
@@ -917,7 +917,7 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "sum by (label) (jellyfin_playback_methods)",
+                        "expr": "sort_desc(sum by (label) (jellyfin_playback_methods))",
                         "instant": true,
                         "legendFormat": "{{label}}"
                       }
@@ -1937,7 +1937,7 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "sum by (label) (media_genres)",
+                        "expr": "sort_desc(sum by (label) (media_genres))",
                         "instant": true,
                         "legendFormat": "{{label}}"
                       }
@@ -2026,7 +2026,7 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "sum by (label) (media_video_codecs)",
+                        "expr": "sort_desc(sum by (label) (media_video_codecs))",
                         "instant": true,
                         "legendFormat": "{{label}}"
                       }
@@ -2132,7 +2132,7 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "sum by (label) (media_audio_codecs)",
+                        "expr": "sort_desc(sum by (label) (media_audio_codecs))",
                         "instant": true,
                         "legendFormat": "{{label}}"
                       }
