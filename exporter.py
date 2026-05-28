@@ -317,16 +317,15 @@ class SonarrCollector:
         # Provide scalar cumulative as a proper time series (no historical labels)
         metrics['sonarr_cumulative_episodes'] = total_episodes
         
-        # Get file types from a sample of episodes (to avoid too many API calls)
-        # We'll just get from the first few series
+        # Get file types and codecs from all episodes (all series)
         filetype_counts = defaultdict(int)
         video_codec_counts = defaultdict(int)
         audio_codec_counts = defaultdict(int)
         
-        for show in series[:10]:  # Sample first 10 shows
+        for show in series:
             episodes = self._get("episode", {"seriesId": show["id"]})
             if episodes:
-                for ep in episodes[:5]:  # Sample first 5 episodes per show
+                for ep in episodes:
                     ep_file = ep.get("episodeFile")
                     if ep_file:
                         # File type
