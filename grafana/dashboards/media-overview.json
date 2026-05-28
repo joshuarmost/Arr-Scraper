@@ -5,8 +5,8 @@
     "name": "media-overview",
     "namespace": "default",
     "uid": "gUqrFDtcAapn1xYyGpSqrdMtZtXXmjJXoMVw0d6IWk0X",
-    "resourceVersion": "1779986926282002",
-    "generation": 58,
+    "resourceVersion": "1779990589885988",
+    "generation": 70,
     "creationTimestamp": "2026-01-08T09:56:06Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "15"
@@ -16,7 +16,7 @@
       "grafana.app/folder": "",
       "grafana.app/saved-from-ui": "Grafana v13.0.1+security-01 (9bbe672d)",
       "grafana.app/updatedBy": "user:eep0mhox1n280f",
-      "grafana.app/updatedTimestamp": "2026-05-28T16:48:46Z"
+      "grafana.app/updatedTimestamp": "2026-05-28T17:49:49Z"
     }
   },
   "spec": {
@@ -205,7 +205,8 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "mode": "palette-classic"
+                    "mode": "shades",
+                    "fixedColor": "#397fff85"
                   },
                   "custom": {
                     "hideFrom": {
@@ -525,7 +526,8 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "mode": "palette-classic"
+                    "mode": "shades",
+                    "fixedColor": "#b82fef94"
                   },
                   "custom": {
                     "hideFrom": {
@@ -1568,7 +1570,7 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "sonarr_series_total",
+                        "expr": "sum(sonarr_episodes_downloaded)",
                         "instant": true
                       }
                     },
@@ -1979,13 +1981,8 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "mode": "palette",
-                    "customPaletteColors": [
-                      "#a057eb",
-                      "#431ec6",
-                      "#1b1297",
-                      "#130e43"
-                    ]
+                    "mode": "shades",
+                    "fixedColor": "#8163ff"
                   },
                   "custom": {
                     "hideFrom": {
@@ -1993,7 +1990,8 @@
                       "tooltip": false,
                       "viz": false
                     }
-                  }
+                  },
+                  "fieldMinMax": false
                 },
                 "overrides": []
               }
@@ -2072,7 +2070,8 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "mode": "palette-classic"
+                    "mode": "shades",
+                    "fixedColor": "#9332d9b0"
                   },
                   "custom": {
                     "hideFrom": {
@@ -2080,7 +2079,8 @@
                       "tooltip": false,
                       "viz": false
                     }
-                  }
+                  },
+                  "fieldMinMax": false
                 },
                 "overrides": [
                   {
@@ -2176,7 +2176,8 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "mode": "palette-classic"
+                    "mode": "shades",
+                    "fixedColor": "#8a52ff"
                   },
                   "custom": {
                     "hideFrom": {
@@ -2241,7 +2242,7 @@
             "spec": {
               "x": 12,
               "y": 0,
-              "width": 4,
+              "width": 5,
               "height": 4,
               "element": {
                 "kind": "ElementReference",
@@ -2252,9 +2253,9 @@
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 16,
+              "x": 17,
               "y": 0,
-              "width": 4,
+              "width": 5,
               "height": 4,
               "element": {
                 "kind": "ElementReference",
