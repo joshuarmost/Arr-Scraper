@@ -291,11 +291,13 @@ class SonarrCollector:
         if episode_counts:
             metrics['sonarr_avg_episodes_per_series'] = sum(episode_counts) / len(episode_counts)
         
-        # Genre breakdown
+        # Genre breakdown (weighted by episode file count)
         genre_counts = defaultdict(int)
         for show in series:
-            for genre in show.get("genres", []):
-                genre_counts[genre] += 1
+            episode_file_count = show.get("statistics", {}).get("episodeFileCount", 0)
+            if episode_file_count > 0:
+                for genre in show.get("genres", []):
+                    genre_counts[genre] += episode_file_count
         metrics['sonarr_genres'] = dict(genre_counts)
         
         # Status breakdown
