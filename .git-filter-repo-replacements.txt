@@ -1,2 +1,4 @@
 # Replace exact secret strings with REPLACED
-p&rPnV4Bz@VAn7guMKQEOw&wMX@JF6==>REDACTED_QBITTORRENT_PASSWORD
+# Replace the actual password below before running git-filter-repo.
+# Example: actual_password==>REDACTED_QBITTORRENT_PASSWORD
+QBITTORRENT_PASSWORD_PLACEHOLDER==>REDACTED_QBITTORRENT_PASSWORD

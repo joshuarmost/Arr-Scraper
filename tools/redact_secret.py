@@ -1,7 +1,9 @@
 import os
 
 secrets = {
-    'p&rPnV4Bz@VAn7guMKQEOw&wMX@JF6': 'REDACTED_QBITTORRENT_PASSWORD'
+    # Do NOT commit actual secrets here. Replace the placeholder with the real value
+    # before using an external filtering tool if needed.
+    'QBITTORRENT_PASSWORD_PLACEHOLDER': 'REDACTED_QBITTORRENT_PASSWORD'
 }
 
 files_to_check = [
