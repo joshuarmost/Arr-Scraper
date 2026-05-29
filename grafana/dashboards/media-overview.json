@@ -1558,7 +1558,7 @@
         "kind": "Panel",
         "spec": {
           "id": 26,
-          "title": "Device Types (Active Sessions)",
+          "title": "Device Types (30d)",
           "description": "",
           "links": [],
           "data": {

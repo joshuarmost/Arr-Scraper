@@ -434,14 +434,6 @@ class JellyfinCollector:
                 media_type = session.get("NowPlayingItem", {}).get("Type", "Unknown")
                 stream_types[media_type] += 1
             metrics['jellyfin_streams_by_type'] = dict(stream_types)
-
-            # Breakdown by Jellyfin client type for active sessions
-            device_types = defaultdict(int)
-            active_sessions = [s for s in sessions if s.get("IsActive")]
-            for session in active_sessions:
-                device_type = session.get("Client") or session.get("DeviceName") or "Unknown"
-                device_types[device_type] += 1
-            metrics['jellyfin_device_types'] = dict(device_types)
         else:
             metrics['jellyfin_active_streams'] = 0
         
@@ -499,6 +491,17 @@ class JellyfinCollector:
                     "Night (6-8pm)": hour_counts.get(18, 0) + hour_counts.get(19, 0),
                     "Late Night (8-10pm)": hour_counts.get(20, 0) + hour_counts.get(21, 0),
                     "Very Late (10pm-12am)": hour_counts.get(22, 0) + hour_counts.get(23, 0),
+                }
+
+            device_types = self._get(
+                "user_usage_stats/ClientName/BreakdownReport",
+                {"days": 30, "timezoneOffset": 0}
+            )
+            if isinstance(device_types, list) and device_types:
+                metrics['jellyfin_device_types'] = {
+                    str(row.get("label", "Unknown")): int(row.get("count", 0) or 0)
+                    for row in device_types
+                    if isinstance(row, dict)
                 }
         except Exception as e:
             logger.warning(f"Could not fetch playback stats (user_usage_stats plugin may not be installed): {e}")
