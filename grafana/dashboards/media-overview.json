@@ -5,8 +5,8 @@
     "name": "media-overview",
     "namespace": "default",
     "uid": "gUqrFDtcAapn1xYyGpSqrdMtZtXXmjJXoMVw0d6IWk0X",
-    "resourceVersion": "1780016347734005",
-    "generation": 106,
+    "resourceVersion": "1780018347520986",
+    "generation": 111,
     "creationTimestamp": "2026-01-08T09:56:06Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "15"
@@ -16,7 +16,7 @@
       "grafana.app/folder": "",
       "grafana.app/saved-from-ui": "Grafana v13.0.1+security-01 (9bbe672d)",
       "grafana.app/updatedBy": "user:eep0mhox1n280f",
-      "grafana.app/updatedTimestamp": "2026-05-29T00:59:07Z"
+      "grafana.app/updatedTimestamp": "2026-05-29T01:32:27Z"
     }
   },
   "spec": {
@@ -1039,7 +1039,7 @@
                   "showLegend": false
                 },
                 "orientation": "vertical",
-                "showValue": "auto",
+                "showValue": "never",
                 "stacking": "none",
                 "tooltip": {
                   "hideZeros": false,
@@ -1076,7 +1076,7 @@
                     "axisColorMode": "text",
                     "axisLabel": "",
                     "axisPlacement": "auto",
-                    "fillOpacity": 80,
+                    "fillOpacity": 100,
                     "gradientMode": "none",
                     "hideFrom": {
                       "legend": false,
