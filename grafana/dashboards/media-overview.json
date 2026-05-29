@@ -5,8 +5,8 @@
     "name": "media-overview",
     "namespace": "default",
     "uid": "gUqrFDtcAapn1xYyGpSqrdMtZtXXmjJXoMVw0d6IWk0X",
-    "resourceVersion": "1780015150292019",
-    "generation": 105,
+    "resourceVersion": "1780016347734005",
+    "generation": 106,
     "creationTimestamp": "2026-01-08T09:56:06Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "15"
@@ -16,7 +16,7 @@
       "grafana.app/folder": "",
       "grafana.app/saved-from-ui": "Grafana v13.0.1+security-01 (9bbe672d)",
       "grafana.app/updatedBy": "user:eep0mhox1n280f",
-      "grafana.app/updatedTimestamp": "2026-05-29T00:39:10Z"
+      "grafana.app/updatedTimestamp": "2026-05-29T00:59:07Z"
     }
   },
   "spec": {
@@ -1554,6 +1554,94 @@
           }
         }
       },
+      "panel-26": {
+        "kind": "Panel",
+        "spec": {
+          "id": 26,
+          "title": "Device Types (Active Sessions)",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "spec": {
+                        "expr": "sort_desc(sum by (label) (jellyfin_device_types))",
+                        "instant": true,
+                        "legendFormat": "{{label}}"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "piechart",
+            "version": "13.0.1+security-01",
+            "spec": {
+              "options": {
+                "displayLabels": [
+                  "name",
+                  "percent"
+                ],
+                "legend": {
+                  "displayMode": "list",
+                  "placement": "right",
+                  "show": true,
+                  "showLegend": false,
+                  "values": []
+                },
+                "pieType": "donut",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "sort": "desc",
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "shades",
+                    "fixedColor": "#a057eb"
+                  },
+                  "custom": {
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
       "panel-3": {
         "kind": "Panel",
         "spec": {
@@ -1577,7 +1665,7 @@
                       },
                       "spec": {
                         "editorMode": "code",
-                        "expr": "\r\n",
+                        "expr": "sonarr_series",
                         "instant": true
                       }
                     },
@@ -2502,6 +2590,19 @@
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-24"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 0,
+              "y": 71,
+              "width": 12,
+              "height": 8,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-26"
               }
             }
           }

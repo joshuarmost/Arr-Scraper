@@ -434,6 +434,14 @@ class JellyfinCollector:
                 media_type = session.get("NowPlayingItem", {}).get("Type", "Unknown")
                 stream_types[media_type] += 1
             metrics['jellyfin_streams_by_type'] = dict(stream_types)
+
+            # Breakdown by Jellyfin client type for active sessions
+            device_types = defaultdict(int)
+            active_sessions = [s for s in sessions if s.get("IsActive")]
+            for session in active_sessions:
+                device_type = session.get("Client") or session.get("DeviceName") or "Unknown"
+                device_types[device_type] += 1
+            metrics['jellyfin_device_types'] = dict(device_types)
         else:
             metrics['jellyfin_active_streams'] = 0
         
