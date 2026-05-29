@@ -463,9 +463,26 @@ class JellyfinCollector:
                     if isinstance(row, dict)
                 )
 
+            # Use Jellyfin's supported item types for an overall hourly usage view.
+            hourly_types_response = self._get("user_usage_stats/type_filter_list")
+            hourly_types: List[str] = []
+            if isinstance(hourly_types_response, list):
+                hourly_types = [str(t) for t in hourly_types_response if t]
+            elif isinstance(hourly_types_response, dict):
+                values = hourly_types_response.get("value", [])
+                if isinstance(values, list):
+                    hourly_types = [str(t) for t in values if t]
+
+            if not hourly_types:
+                hourly_types = ["Episode", "Movie", "AudioBook", "Audio"]
+
             hourly_report = self._get(
                 "user_usage_stats/HourlyReport",
-                {"days": 30, "filter": "movies,series", "timezoneOffset": 0}
+                {
+                    "days": 30,
+                    "filter": ",".join(hourly_types),
+                    "timezoneOffset": 0,
+                }
             )
             if isinstance(hourly_report, dict) and hourly_report:
                 hour_counts = defaultdict(int)

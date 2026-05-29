@@ -1017,23 +1017,7 @@
                   }
                 }
               ],
-              "transformations": [
-                {
-                  "kind": "Transformation",
-                  "group": "sortBy",
-                  "spec": {
-                    "options": {
-                      "fields": {},
-                      "sort": [
-                        {
-                          "desc": false,
-                          "field": "Time"
-                        }
-                      ]
-                    }
-                  }
-                }
-              ],
+              "transformations": [],
               "queryOptions": {}
             }
           },
@@ -1665,7 +1649,7 @@
                       },
                       "spec": {
                         "editorMode": "code",
-                        "expr": "sonarr_series",
+                        "expr": "sonarr_series_total",
                         "instant": true
                       }
                     },
