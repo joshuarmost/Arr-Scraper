@@ -5,8 +5,8 @@
     "name": "media-overview",
     "namespace": "default",
     "uid": "gUqrFDtcAapn1xYyGpSqrdMtZtXXmjJXoMVw0d6IWk0X",
-    "resourceVersion": "1780011906785009",
-    "generation": 98,
+    "resourceVersion": "1780012947458987",
+    "generation": 101,
     "creationTimestamp": "2026-01-08T09:56:06Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "15"
@@ -16,7 +16,7 @@
       "grafana.app/folder": "",
       "grafana.app/saved-from-ui": "Grafana v13.0.1+security-01 (9bbe672d)",
       "grafana.app/updatedBy": "user:eep0mhox1n280f",
-      "grafana.app/updatedTimestamp": "2026-05-28T23:45:06Z"
+      "grafana.app/updatedTimestamp": "2026-05-29T00:02:27Z"
     }
   },
   "spec": {
@@ -1450,7 +1450,7 @@
                   "yHistogram": false
                 },
                 "yAxis": {
-                  "axisPlacement": "left",
+                  "axisPlacement": "hidden",
                   "reverse": false
                 }
               },

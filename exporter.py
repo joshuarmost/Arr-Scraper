@@ -441,55 +441,38 @@ class JellyfinCollector:
         
         # Playback statistics (requires user_usage_stats plugin)
         try:
-            query_data = {
-                "CustomQueryString": """
-                    SELECT ROWID, * FROM PlaybackActivity 
-                    WHERE DateCreated >= datetime('now', '-30 days') 
-                    ORDER BY DateCreated DESC
-                """,
-                "ReplaceUserId": True
-            }
-            headers_custom = {
-                "Accept": "application/json",
-                "Authorization": f"MediaBrowser Token={self.api_key}",
-                "Content-Type": "application/json"
-            }
-            response = self.session.post(
-                f"{self.url}/user_usage_stats/submit_custom_query",
-                json=query_data,
-                headers=headers_custom,
-                timeout=15
+            playback_methods = self._get(
+                "user_usage_stats/PlaybackMethod/BreakdownReport",
+                {"days": 30, "timezoneOffset": 0}
             )
-            
-            if response.status_code == 200:
-                data = response.json()
-                results = data.get("results", [])
-                columns = data.get("colums", [])  # Note: API typo
-                
-                # Count playback methods
-                playback_methods = defaultdict(int)
-                for row in results:
-                    playback_data = dict(zip(columns, row))
-                    method = playback_data.get("PlaybackMethod", "Unknown")
-                    playback_methods[method] += 1
-                
-                metrics['jellyfin_playback_methods'] = dict(playback_methods)
-                metrics['jellyfin_playback_count_30d'] = len(results)
-                
-                # Heatmap data - playback by hour
+            if isinstance(playback_methods, list) and playback_methods:
+                metrics['jellyfin_playback_methods'] = {
+                    str(row.get("label", "Unknown")): int(row.get("count", 0) or 0)
+                    for row in playback_methods
+                    if isinstance(row, dict)
+                }
+                metrics['jellyfin_playback_count_30d'] = sum(
+                    int(row.get("count", 0) or 0)
+                    for row in playback_methods
+                    if isinstance(row, dict)
+                )
+
+            hourly_report = self._get(
+                "user_usage_stats/HourlyReport",
+                {"days": 30, "filter": "movies,series", "timezoneOffset": 0}
+            )
+            if isinstance(hourly_report, dict) and hourly_report:
                 hour_counts = defaultdict(int)
-                for row in results:
-                    playback_data = dict(zip(columns, row))
-                    date_created = playback_data.get("DateCreated")
-                    if date_created:
-                        try:
-                            dt = datetime.strptime(date_created[:13], "%Y-%m-%d %H")
-                            hour_counts[dt.hour] += 1
-                        except:
-                            pass
-                
-                # Condense into 12 time periods (2-hour blocks)
-                time_periods = {
+                for key, value in hourly_report.items():
+                    try:
+                        key_text = str(key)
+                        hour_text = key_text.split("-", 1)[1]
+                        hour = int(hour_text)
+                        hour_counts[hour] += int(value or 0)
+                    except (IndexError, ValueError, TypeError):
+                        continue
+
+                metrics['jellyfin_playback_by_hour'] = {
                     "Midnight (12-2am)": hour_counts.get(0, 0) + hour_counts.get(1, 0),
                     "Early Morning (2-4am)": hour_counts.get(2, 0) + hour_counts.get(3, 0),
                     "Dawn (4-6am)": hour_counts.get(4, 0) + hour_counts.get(5, 0),
@@ -503,8 +486,6 @@ class JellyfinCollector:
                     "Late Night (8-10pm)": hour_counts.get(20, 0) + hour_counts.get(21, 0),
                     "Very Late (10pm-12am)": hour_counts.get(22, 0) + hour_counts.get(23, 0),
                 }
-                
-                metrics['jellyfin_playback_by_hour'] = time_periods
         except Exception as e:
             logger.warning(f"Could not fetch playback stats (user_usage_stats plugin may not be installed): {e}")
         
