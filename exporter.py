@@ -274,7 +274,13 @@ class SonarrCollector:
             # Use the episode endpoint to get an absolute episode count (includes monitored and unmonitored)
             episodes = self._get("episode", {"seriesId": show.get("id")})
             if isinstance(episodes, list):
-                ep_count = len(episodes)
+                # Count unique episodes and exclude specials (seasonNumber == 0)
+                try:
+                    ep_ids = {ep.get("id") for ep in episodes if isinstance(ep, dict) and ep.get("seasonNumber", 0) != 0}
+                    ep_count = len(ep_ids)
+                except Exception:
+                    # Fallback: count items that aren't specials
+                    ep_count = sum(1 for ep in episodes if isinstance(ep, dict) and ep.get("seasonNumber", 0) != 0)
             else:
                 # Fall back to the statistics field if the endpoint fails
                 ep_count = stats.get("episodeCount", 0)

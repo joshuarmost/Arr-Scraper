@@ -5,8 +5,8 @@
     "name": "media-overview",
     "namespace": "default",
     "uid": "gUqrFDtcAapn1xYyGpSqrdMtZtXXmjJXoMVw0d6IWk0X",
-    "resourceVersion": "1780012947458987",
-    "generation": 101,
+    "resourceVersion": "1780015150292019",
+    "generation": 105,
     "creationTimestamp": "2026-01-08T09:56:06Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "15"
@@ -16,7 +16,7 @@
       "grafana.app/folder": "",
       "grafana.app/saved-from-ui": "Grafana v13.0.1+security-01 (9bbe672d)",
       "grafana.app/updatedBy": "user:eep0mhox1n280f",
-      "grafana.app/updatedTimestamp": "2026-05-29T00:02:27Z"
+      "grafana.app/updatedTimestamp": "2026-05-29T00:39:10Z"
     }
   },
   "spec": {
@@ -565,6 +565,7 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
+                        "editorMode": "code",
                         "expr": "sonarr_cumulative_episodes",
                         "instant": false
                       }
@@ -945,10 +946,10 @@
                   "displayMode": "list",
                   "placement": "right",
                   "show": true,
-                  "showLegend": true,
+                  "showLegend": false,
                   "values": []
                 },
-                "pieType": "pie",
+                "pieType": "donut",
                 "reduceOptions": {
                   "calcs": [
                     "lastNotNull"
@@ -966,7 +967,8 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "mode": "palette-classic"
+                    "mode": "shades",
+                    "fixedColor": "#777dff96"
                   },
                   "custom": {
                     "hideFrom": {
@@ -1575,7 +1577,7 @@
                       },
                       "spec": {
                         "editorMode": "code",
-                        "expr": "sonarr_series\r\n",
+                        "expr": "\r\n",
                         "instant": true
                       }
                     },
@@ -1665,7 +1667,8 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "sum(sonarr_episodes_downloaded)",
+                        "editorMode": "code",
+                        "expr": "sonarr_cumulative_episodes",
                         "instant": true
                       }
                     },
