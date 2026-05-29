@@ -1,0 +1,2 @@
+# Replace exact secret strings with REPLACED
+p&rPnV4Bz@VAn7guMKQEOw&wMX@JF6==>REDACTED_QBITTORRENT_PASSWORD
