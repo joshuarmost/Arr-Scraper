@@ -8,7 +8,6 @@ import os
 import time
 import logging
 import ipaddress
-import string
 import statistics
 from datetime import datetime
 from collections import defaultdict

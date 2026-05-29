@@ -5,13 +5,13 @@ on:
     branches:
       - main
       - master
+      - working
     tags:
       - 'v*'
   pull_request:
     branches:
       - main
       - master
-      - working
   workflow_dispatch:
 
 env:

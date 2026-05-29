@@ -1366,7 +1366,7 @@
         "kind": "Panel",
         "spec": {
           "id": 24,
-          "title": "Remote IP Activity (30d)",
+          "title": "Jellyfin Geo Map (30d)",
           "description": "",
           "links": [],
           "timeFrom": "30d",
@@ -1385,9 +1385,9 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "sum by (label) (jellyfin_remote_endpoints)",
-                        "instant": false
-                        ,"legendFormat": "{{label}}"
+                        "expr": "sum by (geohash, ip, city, country) (sum_over_time(jellyfin_remote_ip_locations[30d]))",
+                        "instant": true,
+                        "legendFormat": "{{ip}}"
                       }
                     },
                     "refId": "A",
@@ -1395,51 +1395,54 @@
                   }
                 }
               ],
-              "transformations": [],
+              "transformations": [
+                {
+                  "id": "labelsToFields",
+                  "options": {}
+                }
+              ],
               "queryOptions": {}
             }
           },
           "vizConfig": {
             "kind": "VizConfig",
-            "group": "heatmap",
+            "group": "geomap",
             "version": "13.0.1+security-01",
             "spec": {
               "options": {
-                "annotations": {
-                  "clustering": -1,
-                  "multiLane": false
+                "basemap": {
+                  "type": "default",
+                  "name": "Basemap"
                 },
-                "calculate": false,
-                "cellGap": 1,
-                "color": {
-                  "exponent": 0.5,
-                  "fill": "dark-orange",
-                  "mode": "scheme",
-                  "reverse": false,
-                  "scale": "exponential",
-                  "scheme": "Oranges",
-                  "steps": 65
+                "controls": {
+                  "mouseWheelZoom": true,
+                  "showAttribution": true,
+                  "showDebug": false,
+                  "showMeasure": false,
+                  "showScale": false,
+                  "showZoom": true
                 },
-                "exemplars": {
-                  "color": "rgba(255,0,255,0.7)"
-                },
-                "filterValues": {
-                  "le": 1e-9
-                },
-                "legend": {
-                  "show": true
-                },
-                "rowsFrame": {
-                  "layout": "auto"
-                },
+                "layers": [
+                  {
+                    "type": "markers",
+                    "name": "Jellyfin IPs",
+                    "config": {
+                      "showLegend": false
+                    },
+                    "location": {
+                      "mode": "geohash",
+                      "geohash": "geohash"
+                    },
+                    "tooltip": true
+                  }
+                ],
                 "tooltip": {
-                  "mode": "single",
-                  "showColorScale": false,
-                  "yHistogram": false
+                  "mode": "details"
                 },
-                "yAxis": {
-                  "axisPlacement": "hidden",
-                  "reverse": false
+                "view": {
+                  "id": "fit",
+                  "allLayers": true,
+                  "noRepeat": false
                 }
               },
               "fieldConfig": {
@@ -1449,9 +1452,6 @@
                       "legend": false,
                       "tooltip": false,
                       "viz": false
-                    },
-                    "scaleDistribution": {
-                      "type": "linear"
                     }
                   }
                 },
