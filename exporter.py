@@ -7,6 +7,7 @@ Exports metrics from Radarr, Sonarr, and Jellyfin for Prometheus scraping
 import os
 import time
 import logging
+import ipaddress
 import statistics
 from datetime import datetime
 from collections import defaultdict
@@ -417,6 +418,28 @@ class JellyfinCollector:
         except Exception as e:
             logger.error(f"Error posting to {endpoint}: {e}")
             return None
+
+    @staticmethod
+    def _normalize_remote_endpoint(remote_endpoint: Any) -> str:
+        """Normalize a Jellyfin remote endpoint to a bare IP address when possible."""
+        if not remote_endpoint:
+            return ""
+
+        endpoint_text = str(remote_endpoint).strip()
+        if not endpoint_text:
+            return ""
+
+        if endpoint_text.startswith("[") and "]" in endpoint_text:
+            host = endpoint_text[1:endpoint_text.index("]")]
+        elif endpoint_text.count(":") == 1 and "." in endpoint_text:
+            host = endpoint_text.rsplit(":", 1)[0]
+        else:
+            host = endpoint_text
+
+        try:
+            return str(ipaddress.ip_address(host))
+        except ValueError:
+            return host
     
     def collect_metrics(self) -> Dict[str, Any]:
         """Collect all Jellyfin metrics"""
@@ -427,6 +450,15 @@ class JellyfinCollector:
         if sessions:
             active_streams = [s for s in sessions if s.get("NowPlayingItem")]
             metrics['jellyfin_active_streams'] = len(active_streams)
+
+            remote_endpoint_counts = defaultdict(int)
+            for session in sessions:
+                remote_endpoint = self._normalize_remote_endpoint(session.get("RemoteEndPoint"))
+                if remote_endpoint:
+                    remote_endpoint_counts[remote_endpoint] += 1
+
+            if remote_endpoint_counts:
+                metrics['jellyfin_remote_endpoints'] = dict(remote_endpoint_counts)
             
             # Breakdown by media type
             stream_types = defaultdict(int)
@@ -644,6 +676,7 @@ class MediaExporter:
                         f"{metric_name} breakdown",
                         ['label']
                     )
+                    gauge.clear()
                     for label, val in value.items():
                         gauge.labels(label=str(label)).set(val)
     
