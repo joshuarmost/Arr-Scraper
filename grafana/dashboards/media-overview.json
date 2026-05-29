@@ -1494,6 +1494,16 @@
                 {
                   "id": "labelsToFields",
                   "options": {}
+                },
+                {
+                  "id": "spatial",
+                  "options": {
+                    "action": "prepare",
+                    "source": {
+                      "mode": "geohash",
+                      "geohash": "geohash"
+                    }
+                  }
                 }
               ],
               "queryOptions": {}
@@ -1523,10 +1533,6 @@
                     "name": "Jellyfin IPs",
                     "config": {
                       "showLegend": false
-                    },
-                    "location": {
-                      "mode": "geohash",
-                      "geohash": "geohash"
                     },
                     "tooltip": true
                   }
