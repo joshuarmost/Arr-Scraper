@@ -5,8 +5,8 @@
     "name": "media-overview",
     "namespace": "default",
     "uid": "gUqrFDtcAapn1xYyGpSqrdMtZtXXmjJXoMVw0d6IWk0X",
-    "resourceVersion": "1780018347520986",
-    "generation": 111,
+    "resourceVersion": "1780079068549990",
+    "generation": 123,
     "creationTimestamp": "2026-01-08T09:56:06Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "15"
@@ -16,7 +16,7 @@
       "grafana.app/folder": "",
       "grafana.app/saved-from-ui": "Grafana v13.0.1+security-01 (9bbe672d)",
       "grafana.app/updatedBy": "user:eep0mhox1n280f",
-      "grafana.app/updatedTimestamp": "2026-05-29T01:32:27Z"
+      "grafana.app/updatedTimestamp": "2026-05-29T18:24:28Z"
     }
   },
   "spec": {
@@ -138,7 +138,7 @@
         "kind": "Panel",
         "spec": {
           "id": 10,
-          "title": "Media by Filetype",
+          "title": "Filetypes",
           "description": "",
           "links": [],
           "data": {
@@ -340,7 +340,7 @@
         "kind": "Panel",
         "spec": {
           "id": 12,
-          "title": "Movies Library Size Over Time",
+          "title": "Movies Library Growth",
           "description": "",
           "links": [],
           "data": {
@@ -547,7 +547,7 @@
         "kind": "Panel",
         "spec": {
           "id": 15,
-          "title": "Episodes Library Size Over Time",
+          "title": "Episodes Library Growth",
           "description": "",
           "links": [],
           "data": {
@@ -1030,7 +1030,7 @@
                 "barRadius": 0,
                 "barWidth": 0.97,
                 "fullHighlight": false,
-                "groupWidth": 0.7,
+                "groupWidth": 1,
                 "legend": {
                   "calcs": [],
                   "displayMode": "list",
@@ -1258,7 +1258,7 @@
                 "defaults": {
                   "color": {
                     "mode": "shades",
-                    "fixedColor": "#a74dff"
+                    "fixedColor": "#6f4dff"
                   },
                   "custom": {
                     "hideFrom": {
@@ -1346,7 +1346,7 @@
                 "defaults": {
                   "color": {
                     "mode": "shades",
-                    "fixedColor": "#3e7eff"
+                    "fixedColor": "#953dff"
                   },
                   "custom": {
                     "hideFrom": {
@@ -1366,9 +1366,10 @@
         "kind": "Panel",
         "spec": {
           "id": 24,
-          "title": "Server Utilization (Active Streams)",
+          "title": "Remote IP Activity (30d)",
           "description": "",
           "links": [],
+          "timeFrom": "30d",
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1447,9 +1448,111 @@
                       "legend": false,
                       "tooltip": false,
                       "viz": false
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-27": {
+        "kind": "Panel",
+        "spec": {
+          "id": 27,
+          "title": "Jellyfin Geo Map (30d)",
+          "description": "",
+          "links": [],
+          "timeFrom": "30d",
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "spec": {
+                        "expr": "sum by (geohash, ip, city, country) (sum_over_time(jellyfin_remote_ip_locations[30d]))",
+                        "instant": true,
+                        "legendFormat": "{{ip}}"
+                      }
                     },
-                    "scaleDistribution": {
-                      "type": "linear"
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [
+                {
+                  "id": "labelsToFields",
+                  "options": {}
+                },
+                {
+                  "id": "spatial",
+                  "options": {
+                    "action": "prepare",
+                    "source": {
+                      "mode": "geohash",
+                      "geohash": "geohash"
+                    }
+                  }
+                }
+              ],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "geomap",
+            "version": "13.0.1+security-01",
+            "spec": {
+              "options": {
+                "basemap": {
+                  "type": "default",
+                  "name": "Basemap"
+                },
+                "controls": {
+                  "mouseWheelZoom": true,
+                  "showAttribution": true,
+                  "showDebug": false,
+                  "showMeasure": false,
+                  "showScale": false,
+                  "showZoom": true
+                },
+                "layers": [
+                  {
+                    "type": "markers",
+                    "name": "Jellyfin IPs",
+                    "config": {
+                      "showLegend": false
+                    },
+                    "tooltip": true
+                  }
+                ],
+                "tooltip": {
+                  "mode": "details"
+                },
+                "view": {
+                  "id": "fit",
+                  "allLayers": true,
+                  "noRepeat": false
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "custom": {
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
                     }
                   }
                 },
@@ -1463,7 +1566,7 @@
         "kind": "Panel",
         "spec": {
           "id": 25,
-          "title": "Recent Import Time (Rolling Median)",
+          "title": "Average Import Time",
           "description": "",
           "links": [],
           "data": {
@@ -1649,7 +1752,7 @@
                       },
                       "spec": {
                         "editorMode": "code",
-                        "expr": "sonarr_series_total",
+                        "expr": "max(sonarr_series_total)",
                         "instant": true
                       }
                     },
@@ -1994,7 +2097,7 @@
         "kind": "Panel",
         "spec": {
           "id": 7,
-          "title": "Media by Genre",
+          "title": "Genres",
           "description": "",
           "links": [],
           "data": {
@@ -2083,7 +2186,7 @@
         "kind": "Panel",
         "spec": {
           "id": 8,
-          "title": "Media by Video Codec",
+          "title": "Video Codecs",
           "description": "",
           "links": [],
           "data": {
@@ -2189,7 +2292,7 @@
         "kind": "Panel",
         "spec": {
           "id": 9,
-          "title": "Media by Audio Codec",
+          "title": "Audio Codecs",
           "description": "",
           "links": [],
           "data": {
@@ -2587,6 +2690,19 @@
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-26"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 0,
+              "y": 79,
+              "width": 24,
+              "height": 8,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-27"
               }
             }
           }

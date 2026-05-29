@@ -7,6 +7,7 @@ Exports metrics from Radarr, Sonarr, and Jellyfin for Prometheus scraping
 import os
 import time
 import logging
+import ipaddress
 import statistics
 from datetime import datetime
 from collections import defaultdict
@@ -391,6 +392,7 @@ class JellyfinCollector:
         self.api_key = api_key
         self.headers = {"X-Emby-Token": api_key}
         self.session = requests.Session()
+        self._geo_cache: Dict[str, Dict[str, Any]] = {}
     
     def _get(self, endpoint: str, params: Dict = None) -> Any:
         """Make GET request to Jellyfin API"""
@@ -417,6 +419,103 @@ class JellyfinCollector:
         except Exception as e:
             logger.error(f"Error posting to {endpoint}: {e}")
             return None
+
+    @staticmethod
+    def _normalize_remote_endpoint(remote_endpoint: Any) -> str:
+        """Normalize a Jellyfin remote endpoint to a bare IP address when possible."""
+        if not remote_endpoint:
+            return ""
+
+        endpoint_text = str(remote_endpoint).strip()
+        if not endpoint_text:
+            return ""
+
+        if endpoint_text.startswith("[") and "]" in endpoint_text:
+            host = endpoint_text[1:endpoint_text.index("]")]
+        elif endpoint_text.count(":") == 1 and "." in endpoint_text:
+            host = endpoint_text.rsplit(":", 1)[0]
+        else:
+            host = endpoint_text
+
+        try:
+            return str(ipaddress.ip_address(host))
+        except ValueError:
+            return host
+
+    @staticmethod
+    def _encode_geohash(latitude: float, longitude: float, precision: int = 6) -> str:
+        """Encode a latitude/longitude pair into a geohash string."""
+        base32 = "0123456789bcdefghjkmnpqrstuvwxyz"
+        lat_interval = [-90.0, 90.0]
+        lon_interval = [-180.0, 180.0]
+        geohash = []
+        bit = 0
+        ch = 0
+        even = True
+
+        while len(geohash) < precision:
+            if even:
+                mid = (lon_interval[0] + lon_interval[1]) / 2
+                if longitude >= mid:
+                    ch |= 1 << (4 - bit)
+                    lon_interval[0] = mid
+                else:
+                    lon_interval[1] = mid
+            else:
+                mid = (lat_interval[0] + lat_interval[1]) / 2
+                if latitude >= mid:
+                    ch |= 1 << (4 - bit)
+                    lat_interval[0] = mid
+                else:
+                    lat_interval[1] = mid
+
+            even = not even
+            if bit < 4:
+                bit += 1
+            else:
+                geohash.append(base32[ch])
+                bit = 0
+                ch = 0
+
+        return "".join(geohash)
+
+    def _lookup_ip_geo(self, remote_ip: str) -> Dict[str, Any] | None:
+        """Resolve a public IP address to geolocation data with caching."""
+        if remote_ip in self._geo_cache:
+            return self._geo_cache[remote_ip]
+
+        try:
+            ip_obj = ipaddress.ip_address(remote_ip)
+        except ValueError:
+            return None
+
+        if not ip_obj.is_global:
+            return None
+
+        try:
+            response = self.session.get(
+                f"http://ip-api.com/json/{remote_ip}",
+                params={"fields": "status,message,countryCode,country,city,lat,lon,query"},
+                timeout=5,
+            )
+            response.raise_for_status()
+            data = response.json()
+            if data.get("status") != "success":
+                return None
+
+            geo = {
+                "ip": str(data.get("query") or remote_ip),
+                "country": str(data.get("countryCode") or data.get("country") or "Unknown"),
+                "city": str(data.get("city") or "Unknown"),
+                "latitude": float(data.get("lat")),
+                "longitude": float(data.get("lon")),
+            }
+            geo["geohash"] = self._encode_geohash(geo["latitude"], geo["longitude"], precision=6)
+            self._geo_cache[remote_ip] = geo
+            return geo
+        except Exception as e:
+            logger.warning(f"Could not geolocate IP {remote_ip}: {e}")
+            return None
     
     def collect_metrics(self) -> Dict[str, Any]:
         """Collect all Jellyfin metrics"""
@@ -427,6 +526,27 @@ class JellyfinCollector:
         if sessions:
             active_streams = [s for s in sessions if s.get("NowPlayingItem")]
             metrics['jellyfin_active_streams'] = len(active_streams)
+
+            remote_endpoint_counts = defaultdict(int)
+            remote_ip_locations = defaultdict(int)
+            for session in sessions:
+                remote_endpoint = self._normalize_remote_endpoint(session.get("RemoteEndPoint"))
+                if remote_endpoint:
+                    remote_endpoint_counts[remote_endpoint] += 1
+                    geo = self._lookup_ip_geo(remote_endpoint)
+                    if geo:
+                        label_key = (
+                            str(geo["ip"]),
+                            str(geo["geohash"]),
+                            str(geo["city"]),
+                            str(geo["country"]),
+                        )
+                        remote_ip_locations[label_key] += 1
+
+            if remote_endpoint_counts:
+                metrics['jellyfin_remote_endpoints'] = dict(remote_endpoint_counts)
+            if remote_ip_locations:
+                metrics['jellyfin_remote_ip_locations'] = dict(remote_ip_locations)
             
             # Breakdown by media type
             stream_types = defaultdict(int)
@@ -638,12 +758,31 @@ class MediaExporter:
                 sample_value = next(iter(value.values()))
                 
                 if isinstance(sample_value, (int, float)):
+                    if metric_name == 'jellyfin_remote_ip_locations':
+                        gauge = self._get_or_create_gauge(
+                            metric_name,
+                            f"{metric_name} breakdown",
+                            ['ip', 'geohash', 'city', 'country']
+                        )
+                        gauge.clear()
+                        for label_key, val in value.items():
+                            if isinstance(label_key, tuple) and len(label_key) == 4:
+                                ip_label, geohash_label, city_label, country_label = label_key
+                                gauge.labels(
+                                    ip=str(ip_label),
+                                    geohash=str(geohash_label),
+                                    city=str(city_label),
+                                    country=str(country_label),
+                                ).set(val)
+                        continue
+
                     # Create labeled gauge
                     gauge = self._get_or_create_gauge(
                         metric_name,
                         f"{metric_name} breakdown",
                         ['label']
                     )
+                    gauge.clear()
                     for label, val in value.items():
                         gauge.labels(label=str(label)).set(val)
     
