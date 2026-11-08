@@ -6,9 +6,11 @@ Exports metrics from Radarr, Sonarr, and Jellyfin to Prometheus. Includes pre-bu
 
 ### Option 1: Docker Compose
 
-Create `compose.yaml`:
+Copy [`compose.example.yaml`](compose.example.yaml) to `compose.yaml` and update the service URLs, API keys, and timezone. `TZ` accepts standard IANA timezone names such as `UTC` or `America/New_York`.
 
 ```yaml
+version: "3.8"
+
 services:
   media-exporter:
     image: ghcr.io/joshuarmost/arr-scraper:latest
@@ -16,6 +18,7 @@ services:
     ports:
       - "9877:9877"
     environment:
+      TZ: "UTC"
       RADARR_URL: "http://your-radarr:7878"
       RADARR_API_KEY: "your_api_key"
       SONARR_URL: "http://your-sonarr:8989"

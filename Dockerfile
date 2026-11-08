@@ -6,6 +6,10 @@ LABEL description="Prometheus exporter for Radarr, Sonarr, and Jellyfin"
 # Set working directory
 WORKDIR /app
 
+# Include timezone data so the TZ environment variable works with named zones.
+RUN apt-get update && apt-get install -y --no-install-recommends tzdata && \
+  rm -rf /var/lib/apt/lists/*
+
 # Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
