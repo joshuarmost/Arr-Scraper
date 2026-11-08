@@ -18,13 +18,13 @@ services:
     ports:
       - "9877:9877"
     environment:
-      TZ: "UTC"
-      RADARR_URL: "http://your-radarr:7878"
-      RADARR_API_KEY: "your_api_key"
-      SONARR_URL: "http://your-sonarr:8989"
-      SONARR_API_KEY: "your_api_key"
-      JELLYFIN_URL: "http://your-jellyfin:8096"
-      JELLYFIN_API_KEY: "your_api_key"
+      - TZ=America/Los_Angeles
+      - RADARR_URL=http://your-radarr:7878
+      - RADARR_API_KEY=your_api_key
+      - SONARR_URL=http://your-sonarr:8989
+      - SONARR_API_KEY=your_api_key
+      - JELLYFIN_URL=http://your-jellyfin:8096
+      - JELLYFIN_API_KEY=your_api_key
     restart: unless-stopped
 ```
 
