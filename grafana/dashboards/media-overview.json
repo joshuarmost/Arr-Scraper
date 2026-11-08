@@ -49,6 +49,7 @@
         "spec": {
           "id": 1,
           "title": "Movies Total",
+          "_comment": "Counts downloaded movies, including unmonitored movies.",
           "description": "",
           "links": [],
           "data": {
@@ -66,7 +67,7 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "sum(radarr_movies_downloaded)",
+                        "expr": "sum(radarr_movies_downloaded)", 
                         "instant": true
                       }
                     },
@@ -1480,7 +1481,7 @@
                         "name": "${ds_prometheus}"
                       },
                       "spec": {
-                        "expr": "sum by (geohash, ip, city, country) (sum_over_time(jellyfin_remote_ip_locations[30d]))",
+                        "expr": "sum by (geohash, ip, city, country) (max_over_time(jellyfin_remote_ip_locations[30d]))",
                         "instant": true,
                         "legendFormat": "{{ip}}"
                       }

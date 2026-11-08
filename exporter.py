@@ -14,6 +14,8 @@ from collections import defaultdict
 from typing import Dict, List, Any
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 from prometheus_client import start_http_server, Gauge, Counter, Histogram, Info
 from prometheus_client.core import GaugeMetricFamily, CounterMetricFamily, REGISTRY
 
@@ -23,6 +25,26 @@ logging.basicConfig(
     format='%(asctime)s [%(levelname)s] %(name)s: %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+REQUEST_TIMEOUT = (5, 30)
+
+
+def create_http_session() -> requests.Session:
+    """Create a session with conservative retries for transient API failures."""
+    retry = Retry(
+        total=3,
+        connect=3,
+        read=3,
+        backoff_factor=0.5,
+        status_forcelist=(429, 500, 502, 503, 504),
+        allowed_methods=frozenset({"GET", "POST"}),
+        respect_retry_after_header=True,
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    session = requests.Session()
+    session.mount("http://", adapter)
+    session.mount("https://", adapter)
+    return session
 
 
 class Config:
@@ -57,13 +79,13 @@ class RadarrCollector:
         self.api_key = api_key
         self.tmdb_api_key = tmdb_api_key
         self.headers = {"X-Api-Key": api_key}
-        self.session = requests.Session()
+        self.session = create_http_session()
         
     def _get(self, endpoint: str, params: Dict = None) -> Any:
         """Make GET request to Radarr API"""
         try:
             url = f"{self.url}/api/v3/{endpoint}"
-            response = self.session.get(url, headers=self.headers, params=params, timeout=30)
+            response = self.session.get(url, headers=self.headers, params=params, timeout=REQUEST_TIMEOUT)
             response.raise_for_status()
             return response.json()
         except Exception as e:
@@ -237,13 +259,13 @@ class SonarrCollector:
         self.url = url.rstrip('/')
         self.api_key = api_key
         self.headers = {"X-Api-Key": api_key}
-        self.session = requests.Session()
+        self.session = create_http_session()
     
     def _get(self, endpoint: str, params: Dict = None) -> Any:
         """Make GET request to Sonarr API"""
         try:
             url = f"{self.url}/api/v3/{endpoint}"
-            response = self.session.get(url, headers=self.headers, params=params, timeout=30)
+            response = self.session.get(url, headers=self.headers, params=params, timeout=REQUEST_TIMEOUT)
             response.raise_for_status()
             return response.json()
         except Exception as e:
@@ -390,15 +412,23 @@ class JellyfinCollector:
     def __init__(self, url: str, api_key: str):
         self.url = url.rstrip('/')
         self.api_key = api_key
-        self.headers = {"X-Emby-Token": api_key}
-        self.session = requests.Session()
+        self.headers = {
+            "X-Emby-Token": api_key,
+            "Authorization": (
+                'MediaBrowser Client="Arr Scraper", '
+                'Device="Prometheus Exporter", '
+                'DeviceId="arr-scraper", Version="1.0.0", '
+                f'Token="{api_key}"'
+            ),
+        }
+        self.session = create_http_session()
         self._geo_cache: Dict[str, Dict[str, Any]] = {}
     
     def _get(self, endpoint: str, params: Dict = None) -> Any:
         """Make GET request to Jellyfin API"""
         try:
             url = f"{self.url}/{endpoint}"
-            response = self.session.get(url, headers=self.headers, params=params, timeout=30)
+            response = self.session.get(url, headers=self.headers, params=params, timeout=REQUEST_TIMEOUT)
             response.raise_for_status()
             return response.json()
         except Exception as e:
@@ -413,7 +443,7 @@ class JellyfinCollector:
                 **self.headers,
                 "Content-Type": "application/json"
             }
-            response = self.session.post(url, headers=headers, json=data, timeout=30)
+            response = self.session.post(url, headers=headers, json=data, timeout=REQUEST_TIMEOUT)
             response.raise_for_status()
             return response.json()
         except Exception as e:
@@ -752,6 +782,9 @@ class MediaExporter:
             elif isinstance(value, dict):
                 # Labeled metric
                 if not value:
+                    existing_gauge = self.gauges.get(metric_name)
+                    if existing_gauge:
+                        existing_gauge.clear()
                     continue
                     
                 # Determine if values are numeric or need special handling
